@@ -19,22 +19,29 @@ export function LoginForm() {
             <h2>Sign in to your account</h2>
             <form
                 className="form-container"
-                onSubmit={handleSubmit(registerCustomer)}
+                onSubmit={handleSubmit(handleLogin)}
             >
                 <TextField
-                    {...register('email')}
+                    {...register('email', {
+                        required: 'Email is required',
+                    })}
                     fullWidth
                     type="email"
-                    required
-                    placeholder="Email"
+                    label="Email"
+                    variant="standard"
                     error={!!errors.email}
+                    helperText={errors.email?.message}
                 />
                 <TextField
-                    {...register('password')}
+                    {...register('password', {
+                        required: 'Password is required',
+                    })}
                     fullWidth
                     type="password"
-                    placeholder="Password"
+                    label="Password"
+                    variant="standard"
                     error={!!errors.password}
+                    helperText={errors.password?.message}
                 />
                 <Button type="submit" variant="contained">
                     Login
@@ -50,7 +57,7 @@ export function LoginForm() {
     );
 }
 
-function registerCustomer(form: LoginFormFields) {
-    console.log(form);
+function handleLogin(formData: LoginFormFields) {
+    console.log(formData);
     //TODO: Send the form data to the backend
 }
