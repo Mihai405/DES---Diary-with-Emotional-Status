@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { NavLink } from 'react-router-dom';
 
 interface RegisterFormFields {
     firstName: string;
@@ -11,7 +12,7 @@ interface RegisterFormFields {
     password: string;
 }
 
-export function RegisterForm() {
+export function Register() {
     const {
         register,
         control,
@@ -104,9 +105,9 @@ export function RegisterForm() {
             </form>
             <Typography>
                 Already have an account?{' '}
-                <a style={{ textDecoration: 'none' }} href="/register">
+                <NavLink to="/login" style={{ textDecoration: 'none' }}>
                     Log in here
-                </a>
+                </NavLink>
             </Typography>
         </div>
     );

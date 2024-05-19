@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 interface LoginFormFields {
     email: string;
     password: string;
 }
 
-export function LoginForm() {
+export function Login() {
     const {
         register,
         handleSubmit,
@@ -49,9 +50,9 @@ export function LoginForm() {
             </form>
             <Typography>
                 Don't have an account?{' '}
-                <a style={{ textDecoration: 'none' }} href="/register">
+                <NavLink to="/register" style={{ textDecoration: 'none' }}>
                     Register here
-                </a>
+                </NavLink>
             </Typography>
         </div>
     );
