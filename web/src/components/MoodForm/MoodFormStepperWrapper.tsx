@@ -23,6 +23,8 @@ export function MoodFormStepperWrapper() {
         setDisabled(true);
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === steps.length - 1) {
+            // send mood data to the server
+            console.log('Mood data:', moodData);
             handleReset();
         }
     };
@@ -32,6 +34,7 @@ export function MoodFormStepperWrapper() {
     };
 
     const handleReset = () => {
+        setMoodData({ mood: -1, reason: '', explanation: '' });
         setActiveStep(0);
     };
 
