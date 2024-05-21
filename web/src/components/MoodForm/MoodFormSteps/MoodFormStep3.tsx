@@ -2,12 +2,17 @@ import { Button, TextField } from '@mui/material';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import { useState } from 'react';
 
+import { MoodData } from '../../../types';
+
 export function MoodFormStep3({
     setDisabled,
+    moodData,
+    setMoodData,
 }: {
     setDisabled: (disabled: boolean) => void;
+    moodData: MoodData;
+    setMoodData: (moodData: MoodData) => void;
 }) {
-    const [explanation, setExplanation] = useState<string>('');
     return (
         <>
             <h1>Describe what happened</h1>
@@ -18,11 +23,11 @@ export function MoodFormStep3({
                 multiline
                 fullWidth
                 rows={4}
-                value={explanation}
+                value={moodData.explanation}
                 onChange={e => {
                     if (e.target.value.length > 0) setDisabled(false);
                     if (e.target.value.length === 0) setDisabled(true);
-                    setExplanation(e.target.value);
+                    setMoodData({ ...moodData, explanation: e.target.value });
                 }}
             />
             <Button sx={{ marginTop: '8px' }}>

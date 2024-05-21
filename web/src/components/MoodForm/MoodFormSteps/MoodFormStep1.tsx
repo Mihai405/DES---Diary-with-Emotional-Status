@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { MoodButtons } from '../MoodButtons';
 
+import { MoodData } from '../../../types';
+
 export function MoodFormStep1({
     setDisabled,
+    moodData,
+    setMoodData,
 }: {
     setDisabled: (disabled: boolean) => void;
+    moodData: MoodData;
+    setMoodData: (moodData: MoodData) => void;
 }) {
-    const [selectedMood, setSelectedMood] = useState<number>(-1);
     return (
         <>
             <h1>What's your mood now?</h1>
@@ -16,10 +21,10 @@ export function MoodFormStep1({
             </p>
 
             <MoodButtons
-                selected={selectedMood}
+                selected={moodData.mood}
                 onClick={index => {
-                    if (selectedMood === -1) setDisabled(false);
-                    setSelectedMood(index);
+                    if (moodData.mood === -1) setDisabled(false);
+                    setMoodData({ ...moodData, mood: index });
                 }}
             />
         </>

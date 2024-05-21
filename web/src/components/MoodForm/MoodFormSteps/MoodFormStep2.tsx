@@ -1,6 +1,8 @@
 import { ReactNode, useState } from 'react';
 import { Chip } from '@mui/material';
 
+import { MoodData } from '../../../types';
+
 const reasons = [
     'Work',
     'Family',
@@ -38,10 +40,13 @@ function ReasonChip({
 
 export function MoodFormStep2({
     setDisabled,
+    moodData,
+    setMoodData,
 }: {
     setDisabled: (disabled: boolean) => void;
+    moodData: MoodData;
+    setMoodData: (moodData: MoodData) => void;
 }) {
-    const [selectedReason, setSelectedReason] = useState<number>(-1);
     return (
         <>
             <h1>What’s the reason making you feel this way?</h1>
@@ -51,11 +56,11 @@ export function MoodFormStep2({
                     <ReasonChip
                         key={index}
                         variant={
-                            selectedReason === index ? 'filled' : 'outlined'
+                            moodData.reason === reason ? 'filled' : 'outlined'
                         }
                         onClick={() => {
-                            if (selectedReason === -1) setDisabled(false);
-                            setSelectedReason(index);
+                            if (moodData.reason === '') setDisabled(false);
+                            setMoodData({ ...moodData, reason: reason });
                         }}
                     >
                         {reason}

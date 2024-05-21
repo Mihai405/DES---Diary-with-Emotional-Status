@@ -1,16 +1,23 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import { MoodForm } from './MoodForm';
+import { MoodData } from '../../types';
 
 const steps = ['Mood', 'Reason', 'Explanation'];
 
 export function MoodFormStepperWrapper() {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [disabled, setDisabled] = React.useState(true);
+    const [activeStep, setActiveStep] = useState(0);
+    const [disabled, setDisabled] = useState(true);
+    const [moodData, setMoodData] = useState<MoodData>({
+        mood: -1,
+        reason: '',
+        explanation: '',
+    });
 
     const handleNext = () => {
         setDisabled(true);
@@ -45,7 +52,12 @@ export function MoodFormStepperWrapper() {
                     })}
                 </Stepper>
 
-                <MoodForm activeStep={activeStep} setDisabled={setDisabled} />
+                <MoodForm
+                    activeStep={activeStep}
+                    setDisabled={setDisabled}
+                    moodData={moodData}
+                    setMoodData={setMoodData}
+                />
 
                 {activeStep !== steps.length && (
                     <React.Fragment>
