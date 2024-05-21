@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    background-color: var(--secondary-color);
+    background-color: var(--tertiary-color);
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
@@ -18,5 +18,11 @@ code {
 }
 
 :root {
+    --primary-color: #051d38;
     --secondary-color: #f1f8fb;
+    --tertiary-color: #b3d4f4;
+    --light_blue: #88c3f1;
+    --dark_blue: #43b0f3;
+    --purple: #814f89;
+    --pink: #f69097;
 }

@@ -21,94 +21,98 @@ export function Register() {
     } = useForm<RegisterFormFields>();
 
     return (
-        <div className="container">
-            <img src="/logo_small.png" alt="Diary with Emotional Status" />
-            <h2>Register now</h2>
-            <form
-                className="form-container"
-                onSubmit={handleSubmit(registerCustomer)}
-            >
-                <TextField
-                    {...register('firstName', {
-                        required: 'First name is required',
-                    })}
-                    fullWidth
-                    label="First name"
-                    variant="standard"
-                    error={!!errors.firstName}
-                    helperText={errors.firstName?.message}
-                />
-                <TextField
-                    {...register('lastName', {
-                        required: 'Last name is required',
-                    })}
-                    fullWidth
-                    required
-                    label="Last name"
-                    variant="standard"
-                    error={!!errors.lastName}
-                />
-                <Controller
-                    name="dateOfBirth"
-                    control={control}
-                    rules={{ required: 'Date of birth is required' }}
-                    render={({ field }) => (
-                        <DatePicker
-                            {...field}
-                            sx={{ width: '300px' }}
-                            label="Date of birth"
-                            slotProps={{
-                                textField: {
-                                    variant: 'standard',
-                                    error: !!errors.dateOfBirth,
-                                    helperText: errors.dateOfBirth?.message,
-                                },
-                            }}
-                        />
-                    )}
-                />
-                <TextField
-                    {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                            value: /\S+@\S+\.\S+/,
-                            message: 'Invalid email address',
-                        },
-                    })}
-                    fullWidth
-                    type="email"
-                    required
-                    label="Email"
-                    variant="standard"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                />
-                <TextField
-                    {...register('password', {
-                        required: 'Password is required',
-                        minLength: {
-                            value: 6,
-                            message: 'Password must be at least 6 characters',
-                        },
-                    })}
-                    fullWidth
-                    required
-                    type="password"
-                    label="Password"
-                    variant="standard"
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
-                />
-                <Button type="submit" variant="contained">
-                    Register
-                </Button>
-            </form>
-            <Typography>
-                Already have an account?{' '}
-                <NavLink to="/login" style={{ textDecoration: 'none' }}>
-                    Log in here
-                </NavLink>
-            </Typography>
+        <div className="centered-flex-wrapper">
+            <div className="container">
+                <img src="/logo_small.png" alt="Diary with Emotional Status" />
+                <h2 style={{ color: '#051d38' }}>Register now</h2>
+                <form
+                    className="form-container"
+                    onSubmit={handleSubmit(registerCustomer)}
+                >
+                    <TextField
+                        {...register('firstName', {
+                            required: 'First name is required',
+                        })}
+                        fullWidth
+                        label="First name"
+                        variant="standard"
+                        error={!!errors.firstName}
+                        helperText={errors.firstName?.message}
+                    />
+                    <TextField
+                        {...register('lastName', {
+                            required: 'Last name is required',
+                        })}
+                        fullWidth
+                        label="Last name"
+                        variant="standard"
+                        error={!!errors.lastName}
+                    />
+                    <Controller
+                        name="dateOfBirth"
+                        control={control}
+                        rules={{ required: 'Date of birth is required' }}
+                        render={({ field }) => (
+                            <DatePicker
+                                {...field}
+                                sx={{ width: '300px' }}
+                                label="Date of birth"
+                                slotProps={{
+                                    textField: {
+                                        variant: 'standard',
+                                        error: !!errors.dateOfBirth,
+                                        helperText: errors.dateOfBirth?.message,
+                                    },
+                                }}
+                            />
+                        )}
+                    />
+                    <TextField
+                        {...register('email', {
+                            required: 'Email is required',
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: 'Invalid email address',
+                            },
+                        })}
+                        fullWidth
+                        type="email"
+                        label="Email"
+                        variant="standard"
+                        error={!!errors.email}
+                        helperText={errors.email?.message}
+                    />
+                    <TextField
+                        {...register('password', {
+                            required: 'Password is required',
+                            minLength: {
+                                value: 6,
+                                message:
+                                    'Password must be at least 6 characters',
+                            },
+                        })}
+                        fullWidth
+                        type="password"
+                        label="Password"
+                        variant="standard"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ backgroundColor: '#051d38' }}
+                    >
+                        Register
+                    </Button>
+                </form>
+                <Typography>
+                    Already have an account?{' '}
+                    <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                        Login here
+                    </NavLink>
+                </Typography>
+            </div>
         </div>
     );
 }
