@@ -10,8 +10,11 @@ public class ChatRequest {
 
     private String model;
     private List<Message> messages;
+
+
     private int n = 128;
     private double temperature = 1.0;
+
 
     public ChatRequest(String model, String prompt) {
         this.model = model;
@@ -36,6 +39,7 @@ public class ChatRequest {
         this.messages = messages;
     }
 
+
     public int getN() {
         return n;
     }
@@ -51,6 +55,7 @@ public class ChatRequest {
     public void setTemperature(double temperature) {
         this.temperature = temperature;
     }
+
 // getters and setters
     @Override
     public String toString() {
