@@ -71,14 +71,15 @@ export function MoodFormStepperWrapper() {
                                 pt: 2,
                             }}
                         >
-                            <Button
-                                color="inherit"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                sx={{ mr: 1 }}
-                            >
-                                Back
-                            </Button>
+                            {activeStep !== 0 && (
+                                <Button
+                                    color="inherit"
+                                    onClick={handleBack}
+                                    sx={{ mr: 1 }}
+                                >
+                                    Back
+                                </Button>
+                            )}
                             <Box sx={{ flex: '1 1 auto' }} />
 
                             <Button onClick={handleNext} disabled={disabled}>
