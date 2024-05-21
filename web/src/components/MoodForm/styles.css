@@ -1,0 +1,21 @@
+.centered-form-flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 60vh;
+}
+
+.button-wrapper {
+    font-size: 80px;
+}
+
+.mood-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 50px;
+}
