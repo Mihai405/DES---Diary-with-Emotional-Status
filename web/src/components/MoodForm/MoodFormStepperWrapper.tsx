@@ -13,6 +13,7 @@ export function MoodFormStepperWrapper() {
     const [disabled, setDisabled] = React.useState(true);
 
     const handleNext = () => {
+        setDisabled(true);
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === steps.length - 1) {
             handleReset();
