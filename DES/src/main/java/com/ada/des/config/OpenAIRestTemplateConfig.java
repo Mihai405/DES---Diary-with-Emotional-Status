@@ -18,6 +18,7 @@ public class OpenAIRestTemplateConfig {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().add("Authorization", "Bearer " + openaiApiKey);
+            request.getHeaders().add("Content-Type", "application/json");
             return execution.execute(request, body);
         });
         return restTemplate;
