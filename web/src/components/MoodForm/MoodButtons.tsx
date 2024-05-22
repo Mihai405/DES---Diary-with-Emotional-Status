@@ -1,23 +1,29 @@
 import { Button } from '@mui/material';
 import { ReactNode } from 'react';
 
-const moods = ['😡', '😞', '😐', '😊', '🤩'];
+export const moods: { [key: string]: string } = {
+    angry: '😡',
+    sad: '😞',
+    neutral: '😐',
+    happy: '😊',
+    excited: '🤩',
+};
 export const MoodButtons = ({
     selected,
     onClick,
 }: {
-    selected: number;
-    onClick: (index: number) => void;
+    selected: string;
+    onClick: (mood: string) => void;
 }) => {
     return (
         <div className="mood-buttons-container">
-            {moods.map((mood, index) => (
+            {Object.keys(moods).map((mood, index) => (
                 <MoodButton
                     key={index}
-                    selected={selected === index}
-                    onClick={() => onClick(index)}
+                    selected={selected === mood}
+                    onClick={() => onClick(mood)}
                 >
-                    {mood}
+                    {moods[mood]}
                 </MoodButton>
             ))}
         </div>

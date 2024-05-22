@@ -21,9 +21,9 @@ export function MoodFormStep1({
 
             <MoodButtons
                 selected={moodData.mood}
-                onClick={index => {
-                    if (moodData.mood === -1) setDisabled(false);
-                    setMoodData({ ...moodData, mood: index });
+                onClick={mood => {
+                    if (moodData.mood === '') setDisabled(false);
+                    setMoodData({ ...moodData, mood: mood });
                 }}
             />
         </>
