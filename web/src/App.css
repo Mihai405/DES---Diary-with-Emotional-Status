@@ -10,12 +10,11 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin: 24px;
+    justify-content: space-between;
     background-color: var(--secondary-color);
-    padding: 24px;
+    padding: 16px;
     border-radius: 16px;
+    max-height: 650px;
 }
 
 .form-container {
@@ -25,4 +24,12 @@
     justify-content: center;
     gap: 16px;
     width: 300px;
+}
+
+.homeScreen-container {
+    display: flex;
+    margin: 24px;
+    align-items: start;
+    gap: 24px;
+    height: 100%;
 }
