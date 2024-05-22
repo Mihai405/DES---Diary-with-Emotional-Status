@@ -1,43 +1,59 @@
 package com.ada.des.service.impl;
 
 import com.ada.des.entity.users.User;
+import com.ada.des.repository.UsersRepository;
 import com.ada.des.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Override
     public List<User> getAll() {
-        return null;
+        return usersRepository.findAll();
     }
 
     @Override
     public User findByUsername(String username) {
-        return null;
+        return usersRepository.findByUsername(username);
     }
 
     @Override
     public Boolean containUserByEmail(String email) {
-        return null;
+        return usersRepository.existsByEmail(email);
     }
 
     @Override
+
     public User getUserByEmail(String email) {
-        return null;
+        return usersRepository.findByEmail(email);
+    }
+    
+    public User saveUser(User user) {
+        return usersRepository.save(user);
+    }
+
+    public User updateUser(Long userId, User userDetails) {
+        User user = usersRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+        user.setUsername(userDetails.getUsername());
+        user.setEmail(userDetails.getEmail());
+        user.setPasswordHash(userDetails.getPasswordHash()); // Make sure to hash the password if not already done
+        return usersRepository.save(user);
+    }
+
+    public void deleteUser(Long userId) {
+        User user = usersRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+        usersRepository.delete(user);
     }
 }
