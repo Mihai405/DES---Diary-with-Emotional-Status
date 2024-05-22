@@ -82,6 +82,7 @@ const ModalComponent = ({ visible, onClose }) => {
   useEffect(() => {
     if (visible) {
       setStep(0);
+      setSelectedEmoji(null);
       setSelectedReason(null);
       setExplanation("");
     } else {
