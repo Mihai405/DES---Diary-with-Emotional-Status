@@ -90,7 +90,7 @@ public class ChatController {
             }
         }
     }
-    @PostMapping("/chat/test")
+    @GetMapping("/chat/test")
     public String test(){
         return "Hello";
     }

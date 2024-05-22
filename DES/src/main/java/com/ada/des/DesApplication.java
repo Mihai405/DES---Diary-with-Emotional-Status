@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EntityScan("com.ada.des.entity.users")
+@EntityScan("com.ada.des.entity")
 @CrossOrigin
 public class DesApplication {
 

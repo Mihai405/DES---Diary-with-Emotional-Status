@@ -43,30 +43,30 @@ public class SecurityConfig {
                 .build());
         return manager;
     }
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-//                        authorizationManagerRequestMatcherRegistry
-//                                .requestMatchers(HttpMethod.GET).permitAll()
-//                                .requestMatchers(HttpMethod.POST).permitAll()
-//                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-//                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-//                                .requestMatchers("/login/**").permitAll()
-//                                .requestMatchers("/audio/**").permitAll()
-//                                .requestMatchers("/chat/**").permitAll()
-//                                .anyRequest().permitAll())
-//                .httpBasic(Customizer.withDefaults())
-//                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//
-//        return http.build();
-//    }
-@Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.addFilterAfter(
-            new CustomFilter(), BasicAuthenticationFilter.class);
-    return http.build();
-}
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers(HttpMethod.GET).permitAll()
+                                .requestMatchers(HttpMethod.POST).permitAll()
+                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/audio/**").permitAll()
+                                .requestMatchers("/chat/**").permitAll()
+                                .anyRequest().permitAll())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        return http.build();
+    }
+//@Bean
+//public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http.addFilterAfter(
+//            new CustomFilter(), BasicAuthenticationFilter.class);
+//    return http.build();
+//}
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
