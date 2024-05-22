@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { MoodButtons } from '../MoodButtons';
 
 import { MoodData } from '../../../types';

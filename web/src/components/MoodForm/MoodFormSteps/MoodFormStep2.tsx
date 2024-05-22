@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Chip } from '@mui/material';
 
 import { MoodData } from '../../../types';

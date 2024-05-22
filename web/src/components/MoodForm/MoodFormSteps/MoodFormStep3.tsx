@@ -1,6 +1,5 @@
 import { Button, TextField } from '@mui/material';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-import { useState } from 'react';
 
 import { MoodData } from '../../../types';
 
