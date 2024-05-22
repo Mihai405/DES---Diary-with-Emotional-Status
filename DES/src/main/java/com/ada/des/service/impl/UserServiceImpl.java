@@ -16,6 +16,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UsersRepository usersRepository;
 
+    public UserServiceImpl(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+
     @Override
     public List<User> getAll() {
         return usersRepository.findAll();
@@ -36,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return usersRepository.findByEmail(email);
     }
-    
+
     public User saveUser(User user) {
         return usersRepository.save(user);
     }

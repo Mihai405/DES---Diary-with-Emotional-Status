@@ -7,8 +7,9 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@MappedSuperclass
+
 @Data
+@Entity
 public abstract class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,8 @@ public abstract class User extends BaseEntity {
 
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "profile_pictures")
+    private byte[] profilePicture;
 
     public User(String username, String email, String passwordHash) {
         this.username = username;

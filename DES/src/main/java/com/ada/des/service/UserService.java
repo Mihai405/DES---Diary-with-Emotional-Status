@@ -1,6 +1,7 @@
 package com.ada.des.service;
 
 import com.ada.des.entity.users.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
