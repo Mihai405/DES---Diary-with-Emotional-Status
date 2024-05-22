@@ -1,12 +1,11 @@
 package com.ada.des.entity.journal;
 
 import com.ada.des.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.ada.des.entity.users.User;
+import com.ada.des.security.jwt.JwtUser;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,11 +13,27 @@ import java.util.Date;
 @Table
 @Data
 public class JournalEntry extends BaseEntity {
+
+    @Column(name = "date")
     private Date date;
-    private ArrayList<Emotion> emotions;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "emotion")
+    private Emotion emotion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "reason")
+    private Reason reason;
+
+    @Column(name = "text_summary", columnDefinition = "TEXT")
     private String textSummary;
-    private ArrayList<String> voiceMessages;
-    private ArrayList<String> photos;
-    private ArrayList<String> videos;
-    private boolean favorite;
+
+    @Lob
+    @Column(name = "voice_message", columnDefinition="BLOB")
+    private byte[] voiceMessage;
+
+    @Column(name = "favorite")
+    private Boolean favorite;
+
+    //TODO add User as @ManyToOne
 }
