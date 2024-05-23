@@ -23,41 +23,91 @@ export function MoodFormStep3({
 
     const [isListening, setIsListening] = useState(false);
 
-    useEffect(() => {
-        handleListen();
-    }, [isListening]);
+    // useEffect(() => {
+    //     handleListen();
+    // }, [isListening]);
+    //
+    // const handleListen = () => {
+    //     if (isListening) {
+    //         mic.start();
+    //         mic.onend = () => {
+    //             console.log('continue..');
+    //             mic.start();
+    //         };
+    //     } else {
+    //         mic.stop();
+    //         mic.onend = () => {
+    //             console.log('Stopped Mic on Click');
+    //         };
+    //     }
+    //     mic.onstart = () => {
+    //         console.log('Mics on');
+    //     };
+    //     // @ts-ignore
+    //     mic.onresult = event => {
+    //         const transcript = Array.from(event.results)
+    //             // @ts-ignore
+    //             .map(result => result[0])
+    //             .map(result => result.transcript)
+    //             .join('');
+    //         console.log(transcript);
+    //         setMoodData({ ...moodData, explanation: transcript });
+    //         // @ts-ignore
+    //         mic.onerror = event => {
+    //             console.log(event.error);
+    //         };
+    //     };
+    // };
 
-    const handleListen = () => {
-        if (isListening) {
-            mic.start();
-            mic.onend = () => {
-                console.log('continue..');
+    useEffect(() => {
+        const handleListen = () => {
+            if (isListening) {
                 mic.start();
-            };
-        } else {
-            mic.stop();
-            mic.onend = () => {
-                console.log('Stopped Mic on Click');
-            };
-        }
-        mic.onstart = () => {
-            console.log('Mics on');
-        };
-        // @ts-ignore
-        mic.onresult = event => {
-            const transcript = Array.from(event.results)
-                // @ts-ignore
-                .map(result => result[0])
-                .map(result => result.transcript)
-                .join('');
-            console.log(transcript);
-            setMoodData({ ...moodData, explanation: transcript });
+                mic.onend = () => {
+                    console.log('Microphone has been stopped, restarting...');
+                    if (isListening) {
+                        mic.start();
+                    }
+                };
+            } else {
+                mic.stop();
+                mic.onend = () => console.log('Microphone stopped');
+            }
+
+            mic.onstart = () => console.log('Microphone on');
+
             // @ts-ignore
-            mic.onerror = event => {
-                console.log(event.error);
+            mic.onresult = event => {
+                const transcript = Array.from(event.results)
+                    // @ts-ignore
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join('');
+                console.log(transcript);
+                setMoodData({ ...moodData, explanation: transcript });
             };
+
+            // @ts-ignore
+            mic.onerror = event => console.log(event.error);
         };
-    };
+
+        handleListen();
+
+        // Cleanup function to stop the mic when isListening changes or component unmounts
+        return () => {
+            mic.stop();
+            // You might also want to reset event handlers here if they can cause memory leaks
+            mic.onend = null;
+            mic.onstart = null;
+            mic.onresult = null;
+            mic.onerror = null;
+        };
+    }, [isListening]); // Only re-run the effect if isListening changes
+
+    useEffect(() => {
+        if (moodData.explanation.length > 0) setDisabled(false);
+        if (moodData.explanation.length === 0) setDisabled(true);
+    }, [moodData.explanation]);
 
     return (
         <>
@@ -71,8 +121,6 @@ export function MoodFormStep3({
                 rows={4}
                 value={moodData.explanation}
                 onChange={e => {
-                    if (e.target.value.length > 0) setDisabled(false);
-                    if (e.target.value.length === 0) setDisabled(true);
                     setMoodData({ ...moodData, explanation: e.target.value });
                 }}
             />
