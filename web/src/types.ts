@@ -4,3 +4,7 @@ export interface MoodData {
     explanation: string;
     date: Date;
 }
+
+export interface AuthenticationResponse {
+    token: string;
+}

@@ -3,14 +3,11 @@ import { Button, TextField, Typography } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../store/auth-context';
 import { useContext } from 'react';
+import { AuthenticationResponse } from '../../types';
 
 interface LoginFormFields {
     email: string;
     password: string;
-}
-
-interface LoginResponse {
-    token: string;
 }
 
 export function Login() {
@@ -43,7 +40,7 @@ export function Login() {
         //         throw new Error('Login failed!');
         //     }
         //
-        //     const data: LoginResponse = await response.json();
+        //     const data: AuthenticationResponse = await response.json();
         //     authCtx.login(data.token);
         //     navigate('/', { replace: true });
         // } catch (err) {

@@ -2,7 +2,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../store/auth-context';
+import { AuthenticationResponse } from '../../types';
 
 interface RegisterFormFields {
     firstName: string;
@@ -20,9 +23,12 @@ export function Register() {
         formState: { errors },
     } = useForm<RegisterFormFields>();
 
-    function registerCustomer(formData: RegisterFormFields) {
+    const authCtx = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    async function registerCustomer(formData: RegisterFormFields) {
         // Convert `Dayjs` to `Date` object before sending data to API
-        const formattedData = {
+        const formattedData: { [key: string]: string } = {
             ...formData,
             // dateOfBirth: formData.dateOfBirth
             //     ? formData.dateOfBirth.toDate()
@@ -30,6 +36,33 @@ export function Register() {
         };
         console.log(formattedData);
         //TODO: Send the form data to the backend
+
+        // let payload = new FormData();
+        // for (let key in formattedData) {
+        //     payload.append(key, formattedData[key]);
+        // }
+        //
+        // try {
+        //     const response = await fetch('/users/register', {
+        //         method: 'POST',
+        //         body: payload,
+        //     });
+        //
+        //     if (!response.ok) {
+        //         throw new Error('Registration failed!');
+        //     }
+        //
+        // const data: AuthenticationResponse = await response.json();
+        //     authCtx.login(data.token);
+        //     navigate('/', { replace: true });
+        // } catch (err) {
+        //     if (err instanceof Error) {
+        //         alert(err.message);
+        //     } else {
+        //         // Handle any other unexpected errors
+        //         console.error(err);
+        //     }
+        // }
     }
 
     return (
