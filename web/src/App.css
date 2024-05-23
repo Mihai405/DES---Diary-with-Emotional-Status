@@ -29,7 +29,7 @@
 .homeScreen-container {
     display: flex;
     margin: 24px;
-    align-items: start;
+    justify-content: space-evenly;
     gap: 24px;
     height: 100%;
 }

@@ -1,6 +1,7 @@
 import NavBar from '../components/NavBar/NavBar';
 import { MoodFormStepperWrapper } from '../components/MoodForm/MoodFormStepperWrapper';
 import { MoodHistory } from '../components/History/MoodHistory';
+import { CalendarMoodChart } from '../components/Calendar/CalendarMoodChart';
 
 const mockMoodData = [
     {
@@ -62,6 +63,7 @@ export function HomePage() {
             <div className="homeScreen-container">
                 <MoodFormStepperWrapper />
                 <MoodHistory moodHistory={mockMoodData} />
+                <CalendarMoodChart />
             </div>
         </div>
     );
