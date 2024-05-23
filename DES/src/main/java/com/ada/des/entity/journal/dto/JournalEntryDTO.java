@@ -1,4 +1,5 @@
 package com.ada.des.entity.journal.dto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ public class JournalEntryDTO {
     private String emotion;
     private String reason;
     private String textSummary;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private byte[] voiceMessage;
     private Boolean favorite;
 

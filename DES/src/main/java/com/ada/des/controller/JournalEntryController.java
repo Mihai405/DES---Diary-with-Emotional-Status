@@ -17,9 +17,18 @@ public class JournalEntryController {
         this.chatController = chatController;
     }
 
-    //TODO sync with frontend;
     @GetMapping(path = "/journal", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> saveEmployee(@RequestPart String emotion,
+    public ResponseEntity<?> getAllEntries() {
+        try {
+            return ResponseEntity.ok(journalEntryService.getAllMoods());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //TODO sync with frontend;
+    @PostMapping(path = "/journal", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<?> saveJournalEntries(@RequestPart String emotion,
                                           @RequestPart String reason,
                                           @RequestPart(required = false) String textSummary,
                                           @RequestPart(required = false) MultipartFile voiceMessage,

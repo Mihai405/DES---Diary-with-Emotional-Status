@@ -4,7 +4,11 @@ import com.ada.des.entity.journal.Emotion;
 import com.ada.des.entity.journal.JournalEntry;
 import com.ada.des.entity.journal.Reason;
 import com.ada.des.entity.journal.dto.JournalEntryDTO;
+import com.ada.des.entity.users.User;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JournalEntryDTOMapper {
 
     public static JournalEntry getEntityFromDTO(JournalEntryDTO journalEntryDTO) {
@@ -24,7 +28,6 @@ public class JournalEntryDTOMapper {
         journalEntryDTO.setReason(journalEntry.getReason().name());
         journalEntryDTO.setEmotion(journalEntry.getEmotion().name());
         journalEntryDTO.setTextSummary(journalEntry.getTextSummary());
-        journalEntryDTO.setVoiceMessage(journalEntry.getVoiceMessage());
         journalEntryDTO.setFavorite(journalEntry.getFavorite());
         return journalEntryDTO;
     }

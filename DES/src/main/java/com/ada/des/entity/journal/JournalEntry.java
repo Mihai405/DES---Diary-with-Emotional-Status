@@ -34,6 +34,8 @@ public class JournalEntry extends BaseEntity {
 
     @Column(name = "favorite")
     private Boolean favorite;
-
-    //TODO add User as @ManyToOne
+    
+    @ManyToOne
+    @JoinColumn(name = "user_uuid")
+    private User user;
 }
