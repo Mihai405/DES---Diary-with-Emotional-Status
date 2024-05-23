@@ -14,14 +14,21 @@ const EmojiComponent = ({ emoji, onSelect, isSelected }) => {
 };
 
 const EmojiSelector = ({ selectedEmoji, setSelectedEmoji }) => {
-  const emojis = ["😡", "😞", "😐", "😊", "🤩"];
+  const emojis = [
+    { emoji: "😡", description: "Angry" },
+    { emoji: "😞", description: "Sad" },
+    { emoji: "😐", description: "Neutral" },
+    { emoji: "😊", description: "Happy" },
+    { emoji: "🤩", description: "Excited" },
+  ];
 
   return (
     <View style={styles.container}>
-      {emojis.map((emoji, index) => (
+      {emojis.map(({ emoji, description }, index) => (
         <EmojiComponent
           key={index}
           emoji={emoji}
+          description={description}
           isSelected={selectedEmoji === emoji}
           onSelect={() => setSelectedEmoji(emoji)}
         />

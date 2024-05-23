@@ -1,20 +1,34 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/colors";
+import { Button } from "react-native-elements";
 
-const MoodComponent = ({ moodEmoji, mood, moodDescription, moodReason }) => {
+const MoodComponent = ({
+  moodEmoji,
+  mood,
+  moodDescription,
+  moodReason,
+  onDelete,
+}) => {
   return (
     <View style={styles.container1}>
       <View style={styles.container2}>
-        <Text style={styles.text1}>{moodEmoji}</Text>
-        <Text style={styles.text2}>{mood}</Text>
+        <View style={styles.moodDetails}>
+          <Text style={styles.text1}>{moodEmoji}</Text>
+          <Text style={styles.text2}>{mood}</Text>
+        </View>
+        <Button
+          title="DELETE"
+          type="clear"
+          titleStyle={{ color: "red", fontSize: 14 }}
+          buttonStyle={styles.deleteButton}
+          onPress={onDelete}
+        />
       </View>
       <View style={styles.container3}>
         <Text style={styles.text3}>
-          You felt <Text style={styles.text4}>{moodDescription}</Text>
-        </Text>
-        <Text style={styles.text3}>
           Because of <Text style={styles.text4}>{moodReason}</Text>
         </Text>
+        <Text style={styles.text3}>{moodDescription}</Text>
       </View>
     </View>
   );
@@ -30,10 +44,15 @@ const styles = StyleSheet.create({
   container2: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 10,
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
   container3: {
     marginVertical: 5,
+  },
+  moodDetails: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   text1: {
     fontSize: 40,
@@ -51,6 +70,9 @@ const styles = StyleSheet.create({
   },
   text4: {
     fontWeight: "bold",
+  },
+  deleteButton: {
+    marginRight: 10,
   },
 });
 

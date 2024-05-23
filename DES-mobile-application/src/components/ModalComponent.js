@@ -16,7 +16,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 
-const ModalComponent = ({ visible, onClose }) => {
+const ModalComponent = ({ visible, onClose, onFinish }) => {
   const [step, setStep] = useState(0);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   const [selectedReason, setSelectedReason] = useState(null);
@@ -194,8 +194,19 @@ const ModalComponent = ({ visible, onClose }) => {
     if (step > 0) setStep(step - 1);
   };
 
-  const isFinishEnabled =
-    explanation.trim().length > 0 && recordingData !== null;
+  const handleFinish = () => {
+    if (explanation.trim().length > 0 && recordingData !== null) {
+      const newMood = {
+        moodEmoji: selectedEmoji,
+        // mood: selectedEmoji,
+        moodDescription: explanation,
+        moodReason: selectedReason,
+      };
+      onFinish(newMood);
+    } else {
+      alert("Please complete all fields before finishing!");
+    }
+  };
 
   return (
     <Modal
@@ -235,9 +246,12 @@ const ModalComponent = ({ visible, onClose }) => {
                 {step === totalSteps - 1 && (
                   <Button
                     title="FINISH"
+                    onPress={handleFinish}
                     type="clear"
                     titleStyle={styles.buttonTitleStyle}
-                    disabled={!isFinishEnabled}
+                    disabled={
+                      !explanation.trim().length > 0 && recordingData !== null
+                    }
                   />
                 )}
               </View>
@@ -303,7 +317,6 @@ const styles = StyleSheet.create({
   explanationContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 5,
   },
 });
 

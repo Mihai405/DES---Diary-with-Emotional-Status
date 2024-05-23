@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -32,6 +32,7 @@ const screenOptions = {
 export default function App() {
   const [user, setUser] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [moods, setMoods] = useState([]);
 
   const handleOpenModal = () => {
     setModalVisible(true);
@@ -39,6 +40,17 @@ export default function App() {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const handleAddMood = (moodData) => {
+    setMoods([...moods, moodData]);
+    setModalVisible(false);
+  };
+
+  const handleDeleteMood = (index) => {
+    const updatedMoods = [...moods];
+    updatedMoods.splice(index, 1);
+    setMoods(updatedMoods);
   };
 
   if (!user) {
@@ -65,7 +77,6 @@ export default function App() {
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
           options={{
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
@@ -80,7 +91,15 @@ export default function App() {
               </View>
             ),
           }}
-        />
+        >
+          {(props) => (
+            <HomeScreen
+              {...props}
+              moods={moods}
+              onDeleteMood={handleDeleteMood}
+            />
+          )}
+        </Tab.Screen>
         <Tab.Screen
           name="AddStatus"
           component={View}
@@ -111,7 +130,6 @@ export default function App() {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
           options={{
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
@@ -126,9 +144,15 @@ export default function App() {
               </View>
             ),
           }}
-        />
+        >
+          {() => <ProfileScreen moods={moods} />}
+        </Tab.Screen>
       </Tab.Navigator>
-      <ModalComponent visible={modalVisible} onClose={handleCloseModal} />
+      <ModalComponent
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        onFinish={handleAddMood}
+      />
     </NavigationContainer>
   );
 }

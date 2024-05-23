@@ -1,12 +1,26 @@
+import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import React, { useState } from "react";
 import { Colors } from "../utils/colors";
 import DayComponent from "../components/DayComponent";
-import dayjs from "dayjs";
 import MoodComponent from "../components/MoodComponent";
+import dayjs from "dayjs";
 
-const HomeScreen = () => {
+const HomeScreen = ({ moods, onDeleteMood }) => {
   const [selectedDay, setSelectedDay] = useState(null);
+  const [emojiData, setEmojiData] = useState({});
+
+  useEffect(() => {
+    updateEmojiData();
+  }, [moods]);
+
+  const updateEmojiData = () => {
+    const data = {};
+    moods.forEach((mood) => {
+      const emoji = mood.moodEmoji;
+      data[emoji] = data[emoji] ? data[emoji] + 1 : 1;
+    });
+    setEmojiData(data);
+  };
 
   const generateDays = () => {
     const days = [];
@@ -41,18 +55,16 @@ const HomeScreen = () => {
       <View style={styles.container3}>
         <Text style={styles.text3}>Today's check in</Text>
         <View style={styles.container4}>
-          <MoodComponent
-            moodEmoji="😇"
-            mood="Good"
-            moodDescription="Good"
-            moodReason="Work"
-          />
-          <MoodComponent
-            moodEmoji="😡"
-            mood="Terrible"
-            moodDescription="Terrible"
-            moodReason="Friends"
-          />
+          {moods.map((mood, index) => (
+            <MoodComponent
+              key={index}
+              moodEmoji={mood.moodEmoji}
+              mood={mood.mood}
+              moodDescription={mood.moodDescription}
+              moodReason={mood.moodReason}
+              onDelete={() => onDeleteMood(index)}
+            />
+          ))}
         </View>
       </View>
     </SafeAreaView>
