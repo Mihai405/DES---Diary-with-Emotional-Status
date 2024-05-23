@@ -17,6 +17,7 @@ export function MoodFormStepperWrapper() {
         mood: '',
         reason: '',
         explanation: '',
+        date: new Date(),
     });
 
     const handleNext = () => {
@@ -34,7 +35,12 @@ export function MoodFormStepperWrapper() {
     };
 
     const handleReset = () => {
-        setMoodData({ mood: '', reason: '', explanation: '' });
+        setMoodData({
+            mood: '',
+            reason: '',
+            explanation: '',
+            date: new Date(),
+        });
         setActiveStep(0);
     };
 

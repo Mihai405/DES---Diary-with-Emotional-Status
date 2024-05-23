@@ -4,9 +4,33 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import './styles.css';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import { MoodData } from '../../types';
 
-export function CalendarMoodChart() {
+export function CalendarMoodChart({
+    moodHistory,
+}: {
+    moodHistory: MoodData[];
+}) {
     const [month, setMonth] = useState<Dayjs | null>(dayjs());
+
+    const filteredMoodHistoryBasedOnMonth = moodHistory.filter(moodData =>
+        month?.isSame(dayjs(moodData.date), 'month')
+    );
+
+    const moodCounts: { [key: string]: number } = {
+        Angry: 0,
+        Sad: 0,
+        Neutral: 0,
+        Happy: 0,
+        Excited: 0,
+    };
+
+    filteredMoodHistoryBasedOnMonth.forEach(moodData => {
+        moodCounts[moodData.mood]++;
+    });
+
+    console.log(moodCounts);
+
     return (
         <div className="calendar-container">
             <h1>Mood Chart</h1>
@@ -33,11 +57,15 @@ export function CalendarMoodChart() {
                             'Happy 😊',
                             'Excited 🤩',
                         ],
-                        tickFontSize: 15,
+                        tickFontSize: 14,
                     },
                 ]}
                 series={[
-                    { type: 'bar', data: [3, 1, 4, 6, 3], color: '#b3d4f4' },
+                    {
+                        type: 'bar',
+                        data: Object.values(moodCounts),
+                        color: '#b3d4f4',
+                    },
                 ]}
                 width={500}
                 height={300}
