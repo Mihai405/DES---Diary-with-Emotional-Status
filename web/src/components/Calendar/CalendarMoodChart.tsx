@@ -29,8 +29,6 @@ export function CalendarMoodChart({
         moodCounts[moodData.mood]++;
     });
 
-    console.log(moodCounts);
-
     return (
         <div className="calendar-container">
             <h1>Mood Chart</h1>
