@@ -20,15 +20,27 @@ export function MoodFormStepperWrapper() {
         date: new Date(),
     });
 
-    const handleNext = () => {
+    async function postMood(moodData: MoodData) {
+        const response = await fetch('/mood', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(moodData),
+        });
+        await response.json();
+    }
+
+    async function handleNext() {
         setDisabled(true);
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === steps.length - 1) {
-            // send mood data to the server
             console.log('Mood data:', moodData);
+            // send mood data to the server
+            // await postMood(moodData);
             handleReset();
         }
-    };
+    }
 
     const handleBack = () => {
         setActiveStep(prevActiveStep => prevActiveStep - 1);
