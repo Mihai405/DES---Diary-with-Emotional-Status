@@ -45,7 +45,7 @@ export function MoodFormStepperWrapper() {
     };
 
     return (
-        <div className="container">
+        <div className="mood-form-container">
             <Box sx={{ width: '100%' }}>
                 <Stepper activeStep={activeStep}>
                     {steps.map(label => {
