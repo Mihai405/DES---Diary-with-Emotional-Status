@@ -21,6 +21,36 @@ const mockMoodData: MoodData[] = [
         mood: 'Angry',
         reason: 'Friend',
         explanation: 'My friend was mean to me',
+        date: new Date(),
+    },
+    {
+        mood: 'Neutral',
+        reason: 'Weather',
+        explanation: 'It was a cloudy day',
+        date: new Date(),
+    },
+    {
+        mood: 'Excited',
+        reason: 'Birthday',
+        explanation: 'It was my birthday',
+        date: new Date(),
+    },
+    {
+        mood: 'Happy',
+        reason: 'Work',
+        explanation: 'I worked hard and it paid off',
+        date: new Date(),
+    },
+    {
+        mood: 'Sad',
+        reason: 'School',
+        explanation: 'I failed my test',
+        date: new Date(),
+    },
+    {
+        mood: 'Angry',
+        reason: 'Friend',
+        explanation: 'My friend was mean to me',
         date: new Date('2024-03-01'),
     },
     {
@@ -45,7 +75,7 @@ const mockMoodData: MoodData[] = [
         mood: 'Sad',
         reason: 'School',
         explanation: 'I failed my test',
-        date: new Date('2024-02-20'),
+        date: new Date(),
     },
     {
         mood: 'Angry',
