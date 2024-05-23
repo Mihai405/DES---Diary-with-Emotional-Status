@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 interface RegisterFormFields {
     firstName: string;
     lastName: string;
-    dateOfBirth: dayjs.Dayjs;
+    // dateOfBirth: dayjs.Dayjs;
     email: string;
     password: string;
 }
@@ -19,6 +19,18 @@ export function Register() {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterFormFields>();
+
+    function registerCustomer(formData: RegisterFormFields) {
+        // Convert `Dayjs` to `Date` object before sending data to API
+        const formattedData = {
+            ...formData,
+            // dateOfBirth: formData.dateOfBirth
+            //     ? formData.dateOfBirth.toDate()
+            //     : null,
+        };
+        console.log(formattedData);
+        //TODO: Send the form data to the backend
+    }
 
     return (
         <div className="centered-flex-wrapper">
@@ -48,25 +60,25 @@ export function Register() {
                         variant="standard"
                         error={!!errors.lastName}
                     />
-                    <Controller
-                        name="dateOfBirth"
-                        control={control}
-                        rules={{ required: 'Date of birth is required' }}
-                        render={({ field }) => (
-                            <DatePicker
-                                {...field}
-                                sx={{ width: '300px' }}
-                                label="Date of birth"
-                                slotProps={{
-                                    textField: {
-                                        variant: 'standard',
-                                        error: !!errors.dateOfBirth,
-                                        helperText: errors.dateOfBirth?.message,
-                                    },
-                                }}
-                            />
-                        )}
-                    />
+                    {/*<Controller*/}
+                    {/*    name="dateOfBirth"*/}
+                    {/*    control={control}*/}
+                    {/*    rules={{ required: 'Date of birth is required' }}*/}
+                    {/*    render={({ field }) => (*/}
+                    {/*        <DatePicker*/}
+                    {/*            {...field}*/}
+                    {/*            sx={{ width: '300px' }}*/}
+                    {/*            label="Date of birth"*/}
+                    {/*            slotProps={{*/}
+                    {/*                textField: {*/}
+                    {/*                    variant: 'standard',*/}
+                    {/*                    error: !!errors.dateOfBirth,*/}
+                    {/*                    helperText: errors.dateOfBirth?.message,*/}
+                    {/*                },*/}
+                    {/*            }}*/}
+                    {/*        />*/}
+                    {/*    )}*/}
+                    {/*/>*/}
                     <TextField
                         {...register('email', {
                             required: 'Email is required',
@@ -115,16 +127,4 @@ export function Register() {
             </div>
         </div>
     );
-}
-
-function registerCustomer(formData: RegisterFormFields) {
-    // Convert `Dayjs` to `Date` object before sending data to API
-    const formattedData = {
-        ...formData,
-        dateOfBirth: formData.dateOfBirth
-            ? formData.dateOfBirth.toDate()
-            : null,
-    };
-    console.log(formattedData);
-    //TODO: Send the form data to the backend
 }
