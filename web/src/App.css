@@ -12,9 +12,10 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--secondary-color);
-    padding: 16px;
+    padding: 32px;
     border-radius: 16px;
     max-height: 650px;
+    gap: 16px;
 }
 
 .form-container {
