@@ -1,10 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../store/auth-context';
+import { useContext } from 'react';
 
 interface LoginFormFields {
     email: string;
     password: string;
+}
+
+interface LoginResponse {
+    token: string;
 }
 
 export function Login() {
@@ -14,6 +20,42 @@ export function Login() {
         formState: { errors },
     } = useForm<LoginFormFields>();
 
+    const authCtx = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    async function handleLogin(formData: LoginFormFields) {
+        console.log(formData);
+        //TODO: Send the form data to the backend
+
+        // try {
+        //     const response = await fetch('/users/login', {
+        //         method: 'PATCH',
+        //         body: JSON.stringify({
+        //             email: formData.email,
+        //             password: formData.password,
+        //         }),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     });
+        //
+        //     if (!response.ok) {
+        //         throw new Error('Login failed!');
+        //     }
+        //
+        //     const data: LoginResponse = await response.json();
+        //     authCtx.login(data.token);
+        //     navigate('/', { replace: true });
+        // } catch (err) {
+        //     if (err instanceof Error) {
+        //         alert(err.message);
+        //     } else {
+        //         // Handle any other unexpected errors
+        //         console.error(err);
+        //     }
+        // }
+    }
+
     return (
         <div className="centered-flex-wrapper">
             <div className="container">
@@ -21,6 +63,7 @@ export function Login() {
                 <h2 style={{ color: '#051d38' }}>Sign in to your account</h2>
                 <form
                     className="form-container"
+                    autoComplete="off"
                     onSubmit={handleSubmit(handleLogin)}
                 >
                     <TextField
@@ -62,9 +105,4 @@ export function Login() {
             </div>
         </div>
     );
-}
-
-function handleLogin(formData: LoginFormFields) {
-    console.log(formData);
-    //TODO: Send the form data to the backend
 }
