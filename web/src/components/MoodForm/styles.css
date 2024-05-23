@@ -1,0 +1,40 @@
+.mood-form-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    padding: 16px;
+    border-radius: 16px;
+    max-height: 650px;
+    gap: 16px;
+}
+
+.centered-form-flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 715px;
+}
+
+.mood-button-wrapper {
+    font-size: 80px;
+}
+
+.mood-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 50px;
+}
+
+.reasons-container {
+    margin-top: 50px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}

@@ -1,0 +1,36 @@
+.centered-flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    padding: 32px;
+    border-radius: 16px;
+    max-height: 650px;
+    gap: 16px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 300px;
+}
+
+.homeScreen-container {
+    display: flex;
+    margin: 24px;
+    justify-content: space-evenly;
+    gap: 24px;
+    height: 100%;
+}
