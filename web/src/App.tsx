@@ -12,12 +12,21 @@ import {
 } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import { HomePage } from './pages/HomePage';
+import { SWRConfig } from 'swr';
+import { LayoutWrapper } from './components/LayoutWrapper';
 
 function App() {
     return (
         <React.StrictMode>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <RouterProvider router={router} />
+                <SWRConfig
+                    value={{
+                        fetcher: (resource, init) =>
+                            fetch(resource, init).then(res => res.json()),
+                    }}
+                >
+                    <RouterProvider router={router} />
+                </SWRConfig>
             </LocalizationProvider>
         </React.StrictMode>
     );
@@ -28,7 +37,11 @@ const router = createBrowserRouter(
         <>
             <Route
                 path="/"
-                element={<HomePage />}
+                element={
+                    <LayoutWrapper>
+                        <HomePage />
+                    </LayoutWrapper>
+                }
                 errorElement={<ErrorPage />}
             />
             <Route path="/login" element={<Login />} />

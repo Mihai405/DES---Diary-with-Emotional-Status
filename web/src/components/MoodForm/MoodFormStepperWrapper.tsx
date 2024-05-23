@@ -7,6 +7,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import { MoodForm } from './MoodForm';
 import { MoodData } from '../../types';
+import { mutate } from 'swr';
 
 const steps = ['Mood', 'Reason', 'Explanation'];
 
@@ -29,6 +30,8 @@ export function MoodFormStepperWrapper() {
             body: JSON.stringify(moodData),
         });
         await response.json();
+        // trigger a revalidation (refetch) of the data
+        // await mutate('/mood');
     }
 
     async function handleNext() {

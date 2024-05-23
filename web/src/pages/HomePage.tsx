@@ -3,6 +3,8 @@ import { MoodFormStepperWrapper } from '../components/MoodForm/MoodFormStepperWr
 import { MoodHistory } from '../components/History/MoodHistory';
 import { CalendarMoodChart } from '../components/Calendar/CalendarMoodChart';
 import { MoodData } from '../types';
+import useSWR from 'swr';
+import { CircularProgress } from '@mui/material';
 
 const mockMoodData: MoodData[] = [
     {
@@ -98,14 +100,18 @@ const mockMoodData: MoodData[] = [
 ];
 
 export function HomePage() {
+    // const { data: moods,, isLoading } = useSWR<MoodData[]>('/mood');
+
+    // // if the request is still ongoing
+    // if (isLoading) {
+    //     return <CircularProgress />;
+    // }
+
     return (
-        <div>
-            <NavBar />
-            <div className="homeScreen-container">
-                <MoodFormStepperWrapper />
-                <MoodHistory moodHistory={mockMoodData} />
-                <CalendarMoodChart moodHistory={mockMoodData} />
-            </div>
-        </div>
+        <>
+            <MoodFormStepperWrapper />
+            <MoodHistory moodHistory={mockMoodData} />
+            <CalendarMoodChart moodHistory={mockMoodData} />
+        </>
     );
 }
