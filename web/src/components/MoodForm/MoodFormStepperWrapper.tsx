@@ -46,6 +46,7 @@ export function MoodFormStepperWrapper() {
     }
 
     const handleBack = () => {
+        setDisabled(false);
         setActiveStep(prevActiveStep => prevActiveStep - 1);
     };
 
