@@ -22,35 +22,34 @@ export function Login() {
 
     async function handleLogin(formData: LoginFormFields) {
         console.log(formData);
-        //TODO: Send the form data to the backend
 
-        // try {
-        //     const response = await fetch('/users/login', {
-        //         method: 'PATCH',
-        //         body: JSON.stringify({
-        //             email: formData.email,
-        //             password: formData.password,
-        //         }),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     });
-        //
-        //     if (!response.ok) {
-        //         throw new Error('Login failed!');
-        //     }
-        //
-        //     const data: AuthenticationResponse = await response.json();
-        //     authCtx.login(data.token);
-        //     navigate('/', { replace: true });
-        // } catch (err) {
-        //     if (err instanceof Error) {
-        //         alert(err.message);
-        //     } else {
-        //         // Handle any other unexpected errors
-        //         console.error(err);
-        //     }
-        // }
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed!');
+            }
+
+            const data: AuthenticationResponse = await response.json();
+            authCtx.login(data.token);
+            navigate('/', { replace: true });
+        } catch (err) {
+            if (err instanceof Error) {
+                alert(err.message);
+            } else {
+                // Handle any other unexpected errors
+                console.error(err);
+            }
+        }
     }
 
     return (
