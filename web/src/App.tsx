@@ -16,6 +16,7 @@ import { HomePage } from './pages/HomePage';
 import { SWRConfig } from 'swr';
 import { LayoutWrapper } from './components/LayoutWrapper';
 import { HistoryPage } from './pages/HistoryPage';
+import { StatisticsPage } from './pages/StatisticsPage';
 
 function App() {
     return (
@@ -60,7 +61,11 @@ const router = createBrowserRouter(
             />
             <Route
                 path="/Statistics"
-                element={<LayoutWrapper>Statistics</LayoutWrapper>}
+                element={
+                    <LayoutWrapper>
+                        <StatisticsPage />
+                    </LayoutWrapper>
+                }
             />
             <Route
                 path="/profile"

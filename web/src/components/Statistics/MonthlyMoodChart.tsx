@@ -6,11 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { MoodData } from '../../types';
 
-export function CalendarMoodChart({
-    moodHistory,
-}: {
-    moodHistory: MoodData[];
-}) {
+export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     const [month, setMonth] = useState<Dayjs | null>(dayjs());
 
     const filteredMoodHistoryBasedOnMonth = moodHistory.filter(moodData =>
