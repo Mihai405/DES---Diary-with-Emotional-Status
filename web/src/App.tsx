@@ -7,6 +7,7 @@ import { Register } from './pages/authentication/Register';
 import {
     createBrowserRouter,
     createRoutesFromElements,
+    Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom';
@@ -37,12 +38,16 @@ const router = createBrowserRouter(
         <>
             <Route
                 path="/"
+                element={<Navigate replace to="/home" />}
+                errorElement={<ErrorPage />}
+            />
+            <Route
+                path="/home"
                 element={
                     <LayoutWrapper>
                         <HomePage />
                     </LayoutWrapper>
                 }
-                errorElement={<ErrorPage />}
             />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
