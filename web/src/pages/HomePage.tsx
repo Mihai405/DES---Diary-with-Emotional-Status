@@ -1,12 +1,10 @@
-import NavBar from '../components/NavBar/NavBar';
 import { MoodFormStepperWrapper } from '../components/MoodForm/MoodFormStepperWrapper';
 import { MoodHistory } from '../components/History/MoodHistory';
-import { CalendarMoodChart } from '../components/Calendar/CalendarMoodChart';
 import { MoodData } from '../types';
 import useSWR from 'swr';
 import { CircularProgress } from '@mui/material';
 
-const mockMoodData: MoodData[] = [
+export const mockMoodData: MoodData[] = [
     {
         mood: 'Happy',
         reason: 'Work',
@@ -110,8 +108,7 @@ export function HomePage() {
     return (
         <>
             <MoodFormStepperWrapper />
-            <MoodHistory moodHistory={mockMoodData} />
-            <CalendarMoodChart moodHistory={mockMoodData} />
+            <MoodHistory moodHistory={mockMoodData} date={new Date()} />
         </>
     );
 }

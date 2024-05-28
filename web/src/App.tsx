@@ -15,6 +15,7 @@ import ErrorPage from './pages/ErrorPage';
 import { HomePage } from './pages/HomePage';
 import { SWRConfig } from 'swr';
 import { LayoutWrapper } from './components/LayoutWrapper';
+import { HistoryPage } from './pages/HistoryPage';
 
 function App() {
     return (
@@ -51,7 +52,11 @@ const router = createBrowserRouter(
             />
             <Route
                 path="/history"
-                element={<LayoutWrapper>History</LayoutWrapper>}
+                element={
+                    <LayoutWrapper>
+                        <HistoryPage />
+                    </LayoutWrapper>
+                }
             />
             <Route
                 path="/Statistics"
