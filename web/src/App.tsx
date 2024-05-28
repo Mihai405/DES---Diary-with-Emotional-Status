@@ -67,10 +67,6 @@ const router = createBrowserRouter(
                     </LayoutWrapper>
                 }
             />
-            <Route
-                path="/profile"
-                element={<LayoutWrapper>Profile</LayoutWrapper>}
-            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
         </>
