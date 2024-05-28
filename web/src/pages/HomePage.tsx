@@ -84,9 +84,9 @@ export const mockMoodData: MoodData[] = [
         date: new Date('2024-02-25'),
     },
     {
-        mood: 'Neutral',
+        mood: 'Sad',
         reason: 'Weather',
-        explanation: 'It was a cloudy day',
+        explanation: 'It was a rainy day',
         date: new Date('2024-02-29'),
     },
     {
