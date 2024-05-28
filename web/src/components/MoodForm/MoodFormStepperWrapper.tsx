@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { MoodForm } from './MoodForm';
 import { MoodData } from '../../types';
 import { mutate } from 'swr';
+import { AuthContext } from '../../store/auth-context';
 
 const steps = ['Mood', 'Reason', 'Explanation'];
 
@@ -21,17 +22,20 @@ export function MoodFormStepperWrapper() {
         date: new Date(),
     });
 
+    const authCtx = useContext(AuthContext);
+
     async function postMood(moodData: MoodData) {
         const response = await fetch('/mood', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: authCtx.isLoggedIn ? authCtx.token : '',
             },
             body: JSON.stringify(moodData),
         });
         await response.json();
         // trigger a revalidation (refetch) of the data
-        // await mutate('/mood');
+        await mutate('/mood');
     }
 
     async function handleNext() {
@@ -40,7 +44,7 @@ export function MoodFormStepperWrapper() {
         if (activeStep === steps.length - 1) {
             console.log('Mood data:', moodData);
             // send mood data to the server
-            // await postMood(moodData);
+            await postMood(moodData);
             handleReset();
         }
     }

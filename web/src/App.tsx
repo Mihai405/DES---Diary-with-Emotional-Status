@@ -17,20 +17,23 @@ import { SWRConfig } from 'swr';
 import { LayoutWrapper } from './components/LayoutWrapper';
 import { HistoryPage } from './pages/HistoryPage';
 import { StatisticsPage } from './pages/StatisticsPage';
+import { AuthContextProvider } from './store/auth-context';
 
 function App() {
     return (
         <React.StrictMode>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <SWRConfig
-                    value={{
-                        fetcher: (resource, init) =>
-                            fetch(resource, init).then(res => res.json()),
-                    }}
-                >
-                    <RouterProvider router={router} />
-                </SWRConfig>
-            </LocalizationProvider>
+            <AuthContextProvider>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <SWRConfig
+                        value={{
+                            fetcher: (resource, init) =>
+                                fetch(resource, init).then(res => res.json()),
+                        }}
+                    >
+                        <RouterProvider router={router} />
+                    </SWRConfig>
+                </LocalizationProvider>
+            </AuthContextProvider>
         </React.StrictMode>
     );
 }
