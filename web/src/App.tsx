@@ -49,6 +49,18 @@ const router = createBrowserRouter(
                     </LayoutWrapper>
                 }
             />
+            <Route
+                path="/history"
+                element={<LayoutWrapper>History</LayoutWrapper>}
+            />
+            <Route
+                path="/Statistics"
+                element={<LayoutWrapper>Statistics</LayoutWrapper>}
+            />
+            <Route
+                path="/profile"
+                element={<LayoutWrapper>Profile</LayoutWrapper>}
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
         </>
