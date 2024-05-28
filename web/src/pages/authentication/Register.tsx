@@ -30,39 +30,33 @@ export function Register() {
         // Convert `Dayjs` to `Date` object before sending data to API
         const formattedData: { [key: string]: string } = {
             ...formData,
-            // dateOfBirth: formData.dateOfBirth
-            //     ? formData.dateOfBirth.toDate()
-            //     : null,
+            username: formData.email
         };
-        console.log(formattedData);
-        //TODO: Send the form data to the backend
 
-        // let payload = new FormData();
-        // for (let key in formattedData) {
-        //     payload.append(key, formattedData[key]);
-        // }
-        //
-        // try {
-        //     const response = await fetch('/users/register', {
-        //         method: 'POST',
-        //         body: payload,
-        //     });
-        //
-        //     if (!response.ok) {
-        //         throw new Error('Registration failed!');
-        //     }
-        //
-        // const data: AuthenticationResponse = await response.json();
-        //     authCtx.login(data.token);
-        //     navigate('/', { replace: true });
-        // } catch (err) {
-        //     if (err instanceof Error) {
-        //         alert(err.message);
-        //     } else {
-        //         // Handle any other unexpected errors
-        //         console.error(err);
-        //     }
-        // }
+        try {
+            const response = await fetch('http://localhost:8080/register', {
+                method: 'POST',
+                body: JSON.stringify(formattedData),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Registration failed!');
+            }
+
+        const data: AuthenticationResponse = await response.json();
+            authCtx.login(data.token);
+            navigate('/', { replace: true });
+        } catch (err) {
+            if (err instanceof Error) {
+                alert(err.message);
+            } else {
+                // Handle any other unexpected errors
+                console.error(err);
+            }
+        }
     }
 
     return (
