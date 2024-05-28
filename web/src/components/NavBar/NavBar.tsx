@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-const pages = ['Home', 'Statistics', 'History', 'Profile'];
+const pages = ['Home', 'Statistics', 'History'];
 const settings = ['Logout'];
 
 function NavBar() {
