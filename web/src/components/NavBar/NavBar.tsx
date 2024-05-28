@@ -5,13 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
-const settings = ['Profile', 'Logout'];
+const pages = ['Home', 'Statistics', 'History', 'Profile'];
+const settings = ['Logout'];
 
 function NavBar() {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -28,7 +29,6 @@ function NavBar() {
 
     return (
         <AppBar position="static" sx={{ backgroundColor: '#f1f8fb' }}>
-            {/*<Container>*/}
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Box display="flex" alignItems="center">
                     <Box
@@ -56,8 +56,30 @@ function NavBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        Diary with Emotional Status
+                        Diary with Emotional Status |
                     </Typography>
+                    <div
+                        style={{
+                            display: 'flex',
+                            marginTop: '3px',
+                            flexGrow: 1,
+                        }}
+                    >
+                        {pages.map(page => (
+                            <Button key={page} sx={{ display: 'block' }}>
+                                <NavLink
+                                    to={`/${page.toLowerCase()}`}
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: '#051d38',
+                                        fontSize: '16px',
+                                    }}
+                                >
+                                    {page}
+                                </NavLink>
+                            </Button>
+                        ))}
+                    </div>
                 </Box>
                 <Typography
                     variant="h5"
@@ -114,7 +136,6 @@ function NavBar() {
                     </Menu>
                 </Box>
             </Toolbar>
-            {/*</Container>*/}
         </AppBar>
     );
 }
