@@ -4,6 +4,7 @@ import com.ada.des.entity.journal.dto.UserDTO;
 import com.ada.des.entity.users.User;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UserDTOMapper {
 
@@ -15,6 +16,8 @@ public class UserDTOMapper {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setDateCreated(LocalDateTime.now());
+        user.setCreated(new Date());
+        user.setLastLogin(LocalDateTime.now());
         return user;
     }
 
