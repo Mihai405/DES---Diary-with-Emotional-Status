@@ -16,6 +16,7 @@ export function MoodFormStepperWrapper() {
     const [activeStep, setActiveStep] = useState(0);
     const [disabled, setDisabled] = useState(true);
     const [moodData, setMoodData] = useState<MoodData>({
+        id: 0,
         mood: '',
         reason: '',
         explanation: '',
@@ -25,7 +26,6 @@ export function MoodFormStepperWrapper() {
     const authCtx = useContext(AuthContext);
 
     async function postMood(moodData: MoodData) {
-        console.log("Token " + authCtx.token);
         const response = await fetch('http://localhost:8080/mood', {
             method: 'POST',
             headers: {
@@ -36,16 +36,15 @@ export function MoodFormStepperWrapper() {
         });
         await response.json();
         // trigger a revalidation (refetch) of the data
-        await mutate('/mood');
     }
 
     async function handleNext() {
         setDisabled(true);
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === steps.length - 1) {
-            console.log('Mood data:', moodData);
             // send mood data to the server
             await postMood(moodData);
+            await mutate('http://localhost:8080/mood');
             handleReset();
         }
     }
@@ -57,6 +56,7 @@ export function MoodFormStepperWrapper() {
 
     const handleReset = () => {
         setMoodData({
+            id: 0,
             mood: '',
             reason: '',
             explanation: '',

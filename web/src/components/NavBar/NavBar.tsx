@@ -9,12 +9,15 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../store/auth-context';
 
 const pages = ['Home', 'Statistics', 'History'];
-const settings = ['Logout'];
 
 function NavBar() {
+    const authCtx = React.useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null
     );
@@ -26,6 +29,12 @@ function NavBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    function handleLogout() {
+        authCtx.logout();
+        handleCloseUserMenu();
+        navigate('/login');
+    }
 
     return (
         <AppBar position="static" sx={{ backgroundColor: '#f1f8fb' }}>
@@ -123,16 +132,9 @@ function NavBar() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map(setting => (
-                            <MenuItem
-                                key={setting}
-                                onClick={handleCloseUserMenu}
-                            >
-                                <Typography textAlign="center">
-                                    {setting}
-                                </Typography>
-                            </MenuItem>
-                        ))}
+                        <MenuItem key="logout" onClick={handleLogout}>
+                            <Typography textAlign="center">Logout</Typography>
+                        </MenuItem>
                     </Menu>
                 </Box>
             </Toolbar>

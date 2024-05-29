@@ -5,6 +5,7 @@ import './styles.css';
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { MoodData } from '../../types';
+import { capitalizeFirstLetter } from '../../utils';
 
 export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     const [month, setMonth] = useState<Dayjs | null>(dayjs());
@@ -22,7 +23,7 @@ export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     };
 
     filteredMoodHistoryBasedOnMonth.forEach(moodData => {
-        moodCounts[moodData.mood]++;
+        moodCounts[capitalizeFirstLetter(moodData.mood)]++;
     });
 
     return (
