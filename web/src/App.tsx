@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useContext } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Login } from './pages/authentication/Login';
@@ -17,24 +17,41 @@ import { SWRConfig } from 'swr';
 import { LayoutWrapper } from './components/LayoutWrapper';
 import { HistoryPage } from './pages/HistoryPage';
 import { StatisticsPage } from './pages/StatisticsPage';
-import { AuthContextProvider } from './store/auth-context';
+import { AuthContext, AuthContextProvider } from './store/auth-context';
 
 function App() {
     return (
         <React.StrictMode>
             <AuthContextProvider>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <SWRConfig
-                        value={{
-                            fetcher: (resource, init) =>
-                                fetch(resource, init).then(res => res.json()),
-                        }}
-                    >
+                    <AppSWRConfig>
                         <RouterProvider router={router} />
-                    </SWRConfig>
+                    </AppSWRConfig>
                 </LocalizationProvider>
             </AuthContextProvider>
         </React.StrictMode>
+    );
+}
+
+function AppSWRConfig({ children }: { children: React.ReactNode }) {
+    const authCtx = useContext(AuthContext);
+
+    return (
+        <SWRConfig
+            value={{
+                fetcher: async url => {
+                    const res = await fetch(url, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${authCtx.token}`,
+                        },
+                    });
+                    return res.json();
+                },
+            }}
+        >
+            {children}
+        </SWRConfig>
     );
 }
 

@@ -25,7 +25,6 @@ export function MoodFormStepperWrapper() {
     const authCtx = useContext(AuthContext);
 
     async function postMood(moodData: MoodData) {
-        console.log("Token " + authCtx.token);
         const response = await fetch('http://localhost:8080/mood', {
             method: 'POST',
             headers: {
@@ -43,7 +42,6 @@ export function MoodFormStepperWrapper() {
         setDisabled(true);
         setActiveStep(prevActiveStep => prevActiveStep + 1);
         if (activeStep === steps.length - 1) {
-            console.log('Mood data:', moodData);
             // send mood data to the server
             await postMood(moodData);
             handleReset();

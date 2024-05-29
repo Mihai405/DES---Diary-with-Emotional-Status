@@ -1,18 +1,22 @@
 import { MoodHistory } from '../components/History/MoodHistory';
-import { mockMoodData } from './HomePage';
 import { StaticDatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import { MoodData } from '../types';
+import useSWR from 'swr';
+import { CircularProgress } from '@mui/material';
 
 export function HistoryPage() {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-    // const { data: moods,, isLoading } = useSWR<MoodData[]>('/mood');
+    const { data: moods, isLoading } = useSWR<MoodData[]>(
+        'http://localhost:8080/mood'
+    );
 
-    // // if the request is still ongoing
-    // if (isLoading) {
-    //     return <CircularProgress />;
-    // }
+    // if the request is still ongoing
+    if (isLoading || !moods) {
+        return <CircularProgress />;
+    }
 
     return (
         <>
@@ -37,10 +41,7 @@ export function HistoryPage() {
                 }}
                 orientation={'portrait'}
             />
-            <MoodHistory
-                moodHistory={mockMoodData}
-                date={selectedDate ?? undefined}
-            />
+            <MoodHistory moodHistory={moods} date={selectedDate ?? undefined} />
         </>
     );
 }
