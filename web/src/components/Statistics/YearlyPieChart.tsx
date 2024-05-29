@@ -4,6 +4,8 @@ import * as React from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import { moods } from '../MoodForm/MoodButtons';
+import { capitalizeFirstLetter } from '../../utils';
 
 export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
     const [year, setYear] = useState<Dayjs | null>(dayjs());
@@ -21,7 +23,7 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
     };
 
     filteredMoodHistoryBasedOnYear.forEach(moodData => {
-        moodCounts[moodData.mood]++;
+        moodCounts[capitalizeFirstLetter(moodData.mood)]++;
     });
 
     return (

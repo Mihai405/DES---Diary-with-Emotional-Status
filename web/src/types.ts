@@ -1,5 +1,5 @@
 export interface MoodData {
-    id?: number;
+    id: number;
     mood: string;
     reason: string;
     explanation: string;

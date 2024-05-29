@@ -16,6 +16,7 @@ export function MoodFormStepperWrapper() {
     const [activeStep, setActiveStep] = useState(0);
     const [disabled, setDisabled] = useState(true);
     const [moodData, setMoodData] = useState<MoodData>({
+        id: 0,
         mood: '',
         reason: '',
         explanation: '',
@@ -55,6 +56,7 @@ export function MoodFormStepperWrapper() {
 
     const handleReset = () => {
         setMoodData({
+            id: 0,
             mood: '',
             reason: '',
             explanation: '',

@@ -1,12 +1,23 @@
 import { MonthlyMoodChart } from '../components/Statistics/MonthlyMoodChart';
-import { mockMoodData } from './HomePage';
 import { YearlyPieChart } from '../components/Statistics/YearlyPieChart';
+import useSWR from 'swr';
+import { MoodData } from '../types';
+import { CircularProgress } from '@mui/material';
 
 export function StatisticsPage() {
+    const { data: moods, isLoading } = useSWR<MoodData[]>(
+        'http://localhost:8080/mood'
+    );
+
+    // if the request is still ongoing
+    if (isLoading || !moods) {
+        return <CircularProgress />;
+    }
+
     return (
         <>
-            <YearlyPieChart moodHistory={mockMoodData} />
-            <MonthlyMoodChart moodHistory={mockMoodData} />
+            <YearlyPieChart moodHistory={moods} />
+            <MonthlyMoodChart moodHistory={moods} />
         </>
     );
 }
