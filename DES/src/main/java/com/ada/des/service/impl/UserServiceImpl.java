@@ -58,10 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public UserDTO saveUser(UserDTO userDTO) {
+    public TokenResponse saveUser(UserDTO userDTO) {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = UserDTOMapper.getEntityFromDTO(userDTO);
-        return UserDTOMapper.getDTOFromEntity(usersRepository.save(user));
+        User savedUser = usersRepository.save(user);
+        return new TokenResponse(jwtTokenProvider.createToken(savedUser.getEmail(), new ArrayList<>()));
     }
 
     public User updateUser(Long userId, User userDetails) {
