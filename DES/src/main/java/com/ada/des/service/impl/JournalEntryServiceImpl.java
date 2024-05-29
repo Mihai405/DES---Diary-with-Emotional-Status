@@ -11,6 +11,7 @@ import com.ada.des.repository.JournalEntryJpaRepository;
 import com.ada.des.security.jwt.JwtUser;
 import com.ada.des.service.JournalEntryService;
 import com.ada.des.service.UserService;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +50,7 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     @Override
     @Transactional
     public List<MoodDTO> getAllMoods() {
-        return journalEntryJpaRepository.findAll().stream()
+        return journalEntryJpaRepository.findAll(Sort.by(Sort.Direction.DESC, "date")).stream()
                 .map(MoodDTOMapper::getDTOFromEntity).toList();
     }
 
