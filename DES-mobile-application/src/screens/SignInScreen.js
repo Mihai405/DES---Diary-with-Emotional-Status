@@ -5,13 +5,54 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { Colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const authContext = useContext(AuthContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleLogin() {
+    if (!email || !password) {
+      Alert.alert(
+        "Validation error!",
+        "Please fill out all the mandatory fields!"
+      );
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      const data = await response.json();
+      authContext.login(data.token);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
+    }
+  }
 
   const handleOnPress = () => {
     navigation.navigate("SignUpScreen");
@@ -25,10 +66,15 @@ const SignInScreen = () => {
         <Input
           placeholder="Email"
           inputContainerStyle={styles.inputContainer}
+          value={email}
+          onChangeText={setEmail}
         />
         <Input
           placeholder="Password"
           inputContainerStyle={styles.inputContainer}
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
         <Button
           title={"LOGIN"}
@@ -36,6 +82,7 @@ const SignInScreen = () => {
             backgroundColor: Colors.primaryColor,
             width: 90,
           }}
+          onPress={handleLogin}
         />
         <View style={styles.containerText}>
           <Text style={styles.textBottomFirst}>Don't have an account? </Text>

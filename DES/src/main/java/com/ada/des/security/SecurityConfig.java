@@ -60,7 +60,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .anyRequest().permitAll())
+                                .requestMatchers("/register/**").permitAll()
+                                .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/chat/**").permitAll()
+                                .anyRequest().authenticated())
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)

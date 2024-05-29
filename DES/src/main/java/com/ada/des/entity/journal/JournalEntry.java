@@ -2,11 +2,11 @@ package com.ada.des.entity.journal;
 
 import com.ada.des.entity.BaseEntity;
 import com.ada.des.entity.users.User;
-import com.ada.des.security.jwt.JwtUser;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -15,18 +15,18 @@ import java.util.Date;
 public class JournalEntry extends BaseEntity {
 
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "emotion")
-    private Emotion emotion;
+    private Mood mood;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "reason")
     private Reason reason;
 
     @Column(name = "text_summary", columnDefinition = "TEXT")
-    private String textSummary;
+    private java.lang.String textSummary;
 
     @Lob
     @Column(name = "voice_message", columnDefinition="BLOB")

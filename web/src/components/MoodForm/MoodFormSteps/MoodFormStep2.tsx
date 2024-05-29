@@ -60,7 +60,7 @@ export function MoodFormStep2({
                         }
                         onClick={() => {
                             if (moodData.reason === '') setDisabled(false);
-                            setMoodData({ ...moodData, reason: reason });
+                            setMoodData({ ...moodData, reason: reason.toUpperCase() });
                         }}
                     >
                         {reason}
