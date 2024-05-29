@@ -8,6 +8,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     Navigate,
+    Outlet,
     Route,
     RouterProvider,
 } from 'react-router-dom';
@@ -63,34 +64,46 @@ const router = createBrowserRouter(
                 element={<Navigate replace to="/home" />}
                 errorElement={<ErrorPage />}
             />
-            <Route
-                path="/home"
-                element={
-                    <LayoutWrapper>
-                        <HomePage />
-                    </LayoutWrapper>
-                }
-            />
-            <Route
-                path="/history"
-                element={
-                    <LayoutWrapper>
-                        <HistoryPage />
-                    </LayoutWrapper>
-                }
-            />
-            <Route
-                path="/Statistics"
-                element={
-                    <LayoutWrapper>
-                        <StatisticsPage />
-                    </LayoutWrapper>
-                }
-            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route element={<ProtectedRoute />}>
+                <Route
+                    path="/home"
+                    element={
+                        <LayoutWrapper>
+                            <HomePage />
+                        </LayoutWrapper>
+                    }
+                />
+                <Route
+                    path="/history"
+                    element={
+                        <LayoutWrapper>
+                            <HistoryPage />
+                        </LayoutWrapper>
+                    }
+                />
+                <Route
+                    path="/Statistics"
+                    element={
+                        <LayoutWrapper>
+                            <StatisticsPage />
+                        </LayoutWrapper>
+                    }
+                />
+            </Route>
         </>
     )
 );
+
+function ProtectedRoute() {
+    const authCtx = useContext(AuthContext);
+
+    if (!authCtx.isLoggedIn) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return <Outlet />;
+}
 
 export default App;
