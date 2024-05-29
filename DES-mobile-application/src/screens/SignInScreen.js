@@ -9,9 +9,13 @@ import {
 import { Input, Button } from "react-native-elements";
 import { Colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleOnPress = () => {
     navigation.navigate("SignUpScreen");
@@ -29,6 +33,7 @@ const SignInScreen = () => {
         <Input
           placeholder="Password"
           inputContainerStyle={styles.inputContainer}
+          secureTextEntry
         />
         <Button
           title={"LOGIN"}

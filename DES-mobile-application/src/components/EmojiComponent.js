@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../utils/colors";
 
-const EmojiComponent = ({ emoji, onSelect, isSelected }) => {
+const EmojiComponent = ({ emoji, description, onSelect, isSelected }) => {
   return (
     <TouchableOpacity
-      onPress={onSelect}
+      onPress={() => onSelect(emoji, description)}
       style={[styles.emojiContainer, isSelected && styles.selected]}
     >
       <Text style={styles.emoji}>{emoji}</Text>
@@ -29,8 +29,10 @@ const EmojiSelector = ({ selectedEmoji, setSelectedEmoji }) => {
           key={index}
           emoji={emoji}
           description={description}
-          isSelected={selectedEmoji === emoji}
-          onSelect={() => setSelectedEmoji(emoji)}
+          isSelected={selectedEmoji?.emoji === emoji}
+          onSelect={(emoji, description) =>
+            setSelectedEmoji({ emoji, description })
+          }
         />
       ))}
     </View>

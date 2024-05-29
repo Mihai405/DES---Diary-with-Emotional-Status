@@ -6,27 +6,29 @@ import MoodComponent from "../components/MoodComponent";
 import dayjs from "dayjs";
 
 const HomeScreen = ({ moods, onDeleteMood }) => {
-  const [selectedDay, setSelectedDay] = useState(null);
-  const [emojiData, setEmojiData] = useState({});
+  const [selectedDay, setSelectedDay] = useState(dayjs().startOf("day"));
+  const [filteredMoods, setFilteredMoods] = useState([]);
 
   useEffect(() => {
-    updateEmojiData();
-  }, [moods]);
+    filterMoodsByDay(selectedDay);
+  }, [moods, selectedDay]);
 
-  const updateEmojiData = () => {
-    const data = {};
-    moods.forEach((mood) => {
-      const emoji = mood.moodEmoji;
-      data[emoji] = data[emoji] ? data[emoji] + 1 : 1;
-    });
-    setEmojiData(data);
+  const filterMoodsByDay = (selectedDay) => {
+    const filtered = moods.filter((mood) =>
+      dayjs(mood.timestamp).isSame(selectedDay, "day")
+    );
+    setFilteredMoods(filtered);
   };
 
   const generateDays = () => {
     const days = [];
-    for (let i = 0; i < 14; i++) {
+    for (let i = -3; i <= 3; i++) {
       const day = dayjs().add(i, "day");
-      days.push({ dayWeek: day.format("ddd"), dayMonth: day.format("D") });
+      days.push({
+        dayWeek: day.format("ddd"),
+        dayMonth: day.format("D"),
+        date: day,
+      });
     }
     return days;
   };
@@ -45,9 +47,8 @@ const HomeScreen = ({ moods, onDeleteMood }) => {
               key={index}
               dayWeek={day.dayWeek}
               dayMonth={day.dayMonth}
-              isSelected={selectedDay === index}
-              onPress={() => setSelectedDay(index)}
-              mood="😍"
+              isSelected={day.date.isSame(selectedDay, "day")}
+              onPress={() => setSelectedDay(day.date.startOf("day"))}
             />
           ))}
         </ScrollView>
@@ -55,16 +56,21 @@ const HomeScreen = ({ moods, onDeleteMood }) => {
       <View style={styles.container3}>
         <Text style={styles.text3}>Today's check in</Text>
         <View style={styles.container4}>
-          {moods.map((mood, index) => (
-            <MoodComponent
-              key={index}
-              moodEmoji={mood.moodEmoji}
-              mood={mood.mood}
-              moodDescription={mood.moodDescription}
-              moodReason={mood.moodReason}
-              onDelete={() => onDeleteMood(index)}
-            />
-          ))}
+          {filteredMoods.length > 0 ? (
+            filteredMoods.map((mood, index) => (
+              <MoodComponent
+                key={index}
+                moodEmoji={mood.moodEmoji}
+                mood={mood.mood}
+                moodDescription={mood.moodDescription}
+                moodReason={mood.moodReason}
+                time={mood.timestamp}
+                onDelete={() => onDeleteMood(index)}
+              />
+            ))
+          ) : (
+            <Text style={styles.noMoodsText}>No moods added for this day.</Text>
+          )}
         </View>
       </View>
     </SafeAreaView>
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     width: "100%",
-    height: 150,
+    height: 110,
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 20,
@@ -103,6 +109,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 10,
+  },
+  noMoodsText: {
+    fontSize: 18,
+    color: Colors.primaryColor,
   },
 });
 

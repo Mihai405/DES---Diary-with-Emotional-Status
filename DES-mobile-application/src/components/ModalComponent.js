@@ -153,7 +153,7 @@ const ModalComponent = ({ visible, onClose, onFinish }) => {
         <Input
           placeholder="Explanation"
           value={explanation}
-          onChangeText={(text) => setExplanation(text)}
+          onChangeText={setExplanation}
         />
         <TouchableOpacity onPress={recording ? stopRecording : startRecording}>
           <FontAwesome
@@ -195,12 +195,13 @@ const ModalComponent = ({ visible, onClose, onFinish }) => {
   };
 
   const handleFinish = () => {
-    if (explanation.trim().length > 0 && recordingData !== null) {
+    if (explanation.trim().length > 0 || recordingData !== null) {
       const newMood = {
-        moodEmoji: selectedEmoji,
-        // mood: selectedEmoji,
+        moodEmoji: selectedEmoji.emoji,
+        mood: selectedEmoji.description,
         moodDescription: explanation,
         moodReason: selectedReason,
+        timestamp: new Date().toISOString(),
       };
       onFinish(newMood);
     } else {

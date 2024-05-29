@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/colors";
 import { Button } from "react-native-elements";
+import dayjs from "dayjs";
 
 const MoodComponent = ({
   moodEmoji,
   mood,
+  time,
   moodDescription,
   moodReason,
   onDelete,
@@ -14,7 +16,10 @@ const MoodComponent = ({
       <View style={styles.container2}>
         <View style={styles.moodDetails}>
           <Text style={styles.text1}>{moodEmoji}</Text>
-          <Text style={styles.text2}>{mood}</Text>
+          <View>
+            <Text style={styles.text2}>{mood}</Text>
+            <Text style={styles.text5}>{dayjs(time).format("h:mm A")}</Text>
+          </View>
         </View>
         <Button
           title="DELETE"
@@ -73,6 +78,11 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     marginRight: 10,
+  },
+  text5: {
+    fontSize: 14,
+    marginLeft: 5,
+    color: Colors.primaryColor,
   },
 });
 

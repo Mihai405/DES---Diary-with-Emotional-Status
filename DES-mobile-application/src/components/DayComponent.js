@@ -9,7 +9,7 @@ const DayComponent = ({ dayWeek, dayMonth, mood, isSelected, onPress }) => {
         <Text style={styles.text2}>{dayMonth}</Text>
       </View>
       <View style={styles.container3}>
-        <Text style={styles.text3}>{mood}</Text>
+        {/* <Text style={styles.text3}>{mood}</Text> */}
       </View>
     </TouchableOpacity>
   );

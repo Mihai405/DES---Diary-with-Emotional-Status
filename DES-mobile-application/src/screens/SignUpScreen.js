@@ -17,7 +17,6 @@ const SignUpScreen = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,10 +50,6 @@ const SignUpScreen = () => {
           inputContainerStyle={styles.inputContainer}
           value={lastName}
           onChangeText={setLastName}
-        />
-        <Input
-          placeholder="Date of birth"
-          inputContainerStyle={styles.inputContainer}
         />
         <Input
           placeholder="Email *"
