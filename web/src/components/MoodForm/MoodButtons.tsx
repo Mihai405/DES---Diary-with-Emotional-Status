@@ -1,13 +1,7 @@
 import { Button } from '@mui/material';
 import { ReactNode } from 'react';
+import { moods } from '../../constants';
 
-export const moods: { [key: string]: string } = {
-    Angry: '😡',
-    Sad: '😞',
-    Neutral: '😐',
-    Happy: '😊',
-    Excited: '🤩',
-};
 export const MoodButtons = ({
     selected,
     onClick,

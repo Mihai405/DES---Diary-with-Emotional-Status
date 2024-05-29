@@ -2,22 +2,7 @@ import { ReactNode } from 'react';
 import { Chip } from '@mui/material';
 
 import { MoodData } from '../../../types';
-
-const reasons = [
-    'Work',
-    'Family',
-    'Friends',
-    'Love',
-    'Girlfriend',
-    'Boyfriend',
-    'Wife',
-    'Husband',
-    'Children',
-    'Parents',
-    'Health',
-    'Money',
-    'School',
-];
+import { reasons } from '../../../constants';
 
 function ReasonChip({
     onClick,
@@ -60,7 +45,10 @@ export function MoodFormStep2({
                         }
                         onClick={() => {
                             if (moodData.reason === '') setDisabled(false);
-                            setMoodData({ ...moodData, reason: reason.toUpperCase() });
+                            setMoodData({
+                                ...moodData,
+                                reason: reason.toUpperCase(),
+                            });
                         }}
                     >
                         {reason}

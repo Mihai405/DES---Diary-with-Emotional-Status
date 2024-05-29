@@ -4,7 +4,6 @@ import * as React from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { moods } from '../MoodForm/MoodButtons';
 import { capitalizeFirstLetter } from '../../utils';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 
