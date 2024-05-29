@@ -4,6 +4,8 @@ import com.ada.des.controller.ChatController;
 import com.ada.des.entity.journal.JournalEntry;
 import com.ada.des.entity.journal.dto.JournalEntryDTO;
 import com.ada.des.entity.journal.dto.mapper.JournalEntryDTOMapper;
+import com.ada.des.entity.journal.dto.mapper.MoodDTO;
+import com.ada.des.entity.journal.dto.mapper.MoodDTOMapper;
 import com.ada.des.entity.users.User;
 import com.ada.des.repository.JournalEntryJpaRepository;
 import com.ada.des.security.jwt.JwtUser;
@@ -33,6 +35,14 @@ public class JournalEntryServiceImpl implements JournalEntryService {
         JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         journalEntry.setUser(userService.getUserByEmail(jwtUser.getEmail()));
         return JournalEntryDTOMapper.getDTOFromEntity(journalEntryJpaRepository.save(journalEntry));
+    }
+
+    @Override
+    public MoodDTO save(MoodDTO moodDTO) {
+        JournalEntry journalEntry = MoodDTOMapper.getEntityFromDTO(moodDTO);
+        JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        journalEntry.setUser(userService.getUserByEmail(jwtUser.getEmail()));
+        return MoodDTOMapper.getDTOFromEntity(journalEntryJpaRepository.save(journalEntry));
     }
 
     @Override

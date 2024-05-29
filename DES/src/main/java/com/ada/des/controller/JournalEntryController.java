@@ -1,5 +1,6 @@
 package com.ada.des.controller;
 import com.ada.des.entity.journal.dto.JournalEntryDTO;
+import com.ada.des.entity.journal.dto.mapper.MoodDTO;
 import com.ada.des.service.JournalEntryService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,11 @@ public class JournalEntryController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping(path = "/mood")
+    public ResponseEntity<?> saveMoods(@RequestBody MoodDTO moodDTO) {
+        return ResponseEntity.ok(journalEntryService.save(moodDTO));
     }
 
 }

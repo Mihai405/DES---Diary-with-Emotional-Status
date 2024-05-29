@@ -1,5 +1,5 @@
 package com.ada.des.entity.journal;
 
-public enum Emotion {
+public enum Mood {
     HAPPY, SAD, ANGRY, SURPRISED, ANXIOUS, RELAXED;
 }
