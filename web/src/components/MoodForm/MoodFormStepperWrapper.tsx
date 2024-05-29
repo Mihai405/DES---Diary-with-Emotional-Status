@@ -36,7 +36,6 @@ export function MoodFormStepperWrapper() {
         });
         await response.json();
         // trigger a revalidation (refetch) of the data
-        await mutate('/mood');
     }
 
     async function handleNext() {
@@ -45,6 +44,7 @@ export function MoodFormStepperWrapper() {
         if (activeStep === steps.length - 1) {
             // send mood data to the server
             await postMood(moodData);
+            await mutate('http://localhost:8080/mood');
             handleReset();
         }
     }
