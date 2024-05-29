@@ -1,8 +1,17 @@
 import { MoodData } from '../../types';
 import { PieChart } from '@mui/x-charts';
 import * as React from 'react';
+import { DatePicker } from '@mui/x-date-pickers';
+import { useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
 export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
+    const [year, setYear] = useState<Dayjs | null>(dayjs());
+
+    const filteredMoodHistoryBasedOnYear = moodHistory.filter(moodData =>
+        year?.isSame(dayjs(moodData.date), 'year')
+    );
+
     const moodCounts: { [key: string]: number } = {
         Angry: 0,
         Sad: 0,
@@ -11,22 +20,25 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
         Excited: 0,
     };
 
-    moodHistory.forEach(moodData => {
+    filteredMoodHistoryBasedOnYear.forEach(moodData => {
         moodCounts[moodData.mood]++;
     });
 
     return (
-        <div
-            style={{
-                backgroundColor: '#f1f8fb',
-                borderRadius: '16px',
-                padding: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-            <h1>Yearly Mood Pie Chart</h1>
+        <div className="yearly-mood-container">
+            <h1>Yearly Mood Chart</h1>
+            <DatePicker
+                views={['year']}
+                openTo="year"
+                disableFuture={true}
+                slotProps={{
+                    textField: {
+                        variant: 'standard',
+                    },
+                }}
+                value={year}
+                onChange={date => setYear(date)}
+            />
             <PieChart
                 series={[
                     {
