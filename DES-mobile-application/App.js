@@ -31,7 +31,7 @@ const screenOptions = {
 };
 
 export default function App() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [moods, setMoods] = useState([]);
 
