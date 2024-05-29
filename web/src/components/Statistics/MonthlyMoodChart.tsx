@@ -28,7 +28,7 @@ export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     });
 
     return (
-        <div className="monthly-mood-container">
+        <div className="mood-container">
             <h1>Monthly Mood Chart</h1>
             <DatePicker
                 views={['year', 'month']}

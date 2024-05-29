@@ -28,7 +28,7 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
     });
 
     return (
-        <div className="yearly-mood-container">
+        <div className="mood-container">
             <h1>Yearly Mood Chart</h1>
             <DatePicker
                 views={['year']}
