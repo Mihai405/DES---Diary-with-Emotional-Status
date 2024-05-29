@@ -25,11 +25,12 @@ export function MoodFormStepperWrapper() {
     const authCtx = useContext(AuthContext);
 
     async function postMood(moodData: MoodData) {
-        const response = await fetch('/mood', {
+        console.log("Token " + authCtx.token);
+        const response = await fetch('http://localhost:8080/mood', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: authCtx.isLoggedIn ? authCtx.token : '',
+                Authorization: `Bearer ${authCtx.isLoggedIn ? authCtx.token : ''}`,
             },
             body: JSON.stringify(moodData),
         });

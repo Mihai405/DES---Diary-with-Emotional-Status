@@ -23,7 +23,7 @@ export function MoodFormStep1({
                 selected={moodData.mood}
                 onClick={mood => {
                     if (moodData.mood === '') setDisabled(false);
-                    setMoodData({ ...moodData, mood: mood });
+                    setMoodData({ ...moodData, mood: mood.toUpperCase() });
                 }}
             />
         </>
