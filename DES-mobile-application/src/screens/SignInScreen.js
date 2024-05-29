@@ -20,7 +20,7 @@ const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleLogin(email, password) {
+  async function handleLogin() {
     if (!email || !password) {
       Alert.alert(
         "Validation error!",

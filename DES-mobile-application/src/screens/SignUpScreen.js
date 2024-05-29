@@ -26,7 +26,7 @@ const SignUpScreen = () => {
     navigation.navigate("SignInScreen");
   };
 
-  async function handleRegister(firstName, lastName, email, password) {
+  async function handleRegister() {
     if (!firstName || !lastName || !email || !password) {
       Alert.alert(
         "Validation error!",
@@ -35,15 +35,18 @@ const SignUpScreen = () => {
       return;
     }
 
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    console.log(payload)
+
     try {
       const response = await fetch("http://localhost:8080/register", {
         method: "POST",
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-        }),
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,6 +57,7 @@ const SignUpScreen = () => {
       }
 
       const data = await response.json();
+      console.log(data);
       authContext.login(data.token);
       navigation.navigate("Home");
     } catch (error) {
