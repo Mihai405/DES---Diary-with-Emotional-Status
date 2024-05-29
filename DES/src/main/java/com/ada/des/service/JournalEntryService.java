@@ -9,6 +9,7 @@ public interface JournalEntryService {
 
     JournalEntryDTO save(JournalEntryDTO journalEntryDTO);
     MoodDTO save(MoodDTO moodDTO);
-    List<JournalEntryDTO> getAllMoods();
+    List<MoodDTO> getAllMoods();
+    void delete(Long id);
 
 }

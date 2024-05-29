@@ -38,6 +38,7 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     }
 
     @Override
+    @Transactional
     public MoodDTO save(MoodDTO moodDTO) {
         JournalEntry journalEntry = MoodDTOMapper.getEntityFromDTO(moodDTO);
         JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -46,7 +47,15 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     }
 
     @Override
-    public List<JournalEntryDTO> getAllMoods() {
-        return List.of();
+    @Transactional
+    public List<MoodDTO> getAllMoods() {
+        return journalEntryJpaRepository.findAll().stream()
+                .map(MoodDTOMapper::getDTOFromEntity).toList();
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        journalEntryJpaRepository.findById(id).ifPresent(journalEntryJpaRepository::delete);
     }
 }

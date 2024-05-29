@@ -18,7 +18,7 @@ public class JournalEntryController {
         this.chatController = chatController;
     }
 
-    @GetMapping(path = "/journal", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @GetMapping(path = "/mood")
     public ResponseEntity<?> getAllEntries() {
         try {
             return ResponseEntity.ok(journalEntryService.getAllMoods());
@@ -46,6 +46,16 @@ public class JournalEntryController {
     @PostMapping(path = "/mood")
     public ResponseEntity<?> saveMoods(@RequestBody MoodDTO moodDTO) {
         return ResponseEntity.ok(journalEntryService.save(moodDTO));
+    }
+
+    @DeleteMapping(path = "/mood/{uuid}")
+    public ResponseEntity<?> deleteMoods(@PathVariable String uuid) {
+        try {
+            journalEntryService.delete(Long.valueOf(uuid));
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
