@@ -32,7 +32,7 @@ export function MoodHistory({
         <div className="moodHistory-container">
             <h1>{title}</h1>
             {moodHistoryFiltered.map(moodData => (
-                <MoodCard moodData={moodData} />
+                <MoodCard key={moodData.id} moodData={moodData} />
             ))}
             {moodHistoryFiltered.length === 0 && (
                 <div style={{ textAlign: 'center', marginTop: '120px' }}>
