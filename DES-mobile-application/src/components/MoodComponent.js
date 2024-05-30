@@ -1,7 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Colors } from "../utils/colors";
 import { Button } from "react-native-elements";
 import dayjs from "dayjs";
+import { Audio } from "expo-av";
+import { Entypo } from "@expo/vector-icons";
 
 const MoodComponent = ({
   moodEmoji,
@@ -9,8 +12,30 @@ const MoodComponent = ({
   time,
   moodDescription,
   moodReason,
+  recordingURI,
   onDelete,
 }) => {
+  const [sound, setSound] = useState(null);
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  const playSound = async () => {
+    if (recordingURI) {
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: recordingURI },
+        { shouldPlay: true }
+      );
+      setSound(sound);
+      await sound.playAsync();
+    }
+  };
+
   return (
     <View style={styles.container1}>
       <View style={styles.container2}>
@@ -20,6 +45,17 @@ const MoodComponent = ({
             <Text style={styles.text2}>{mood}</Text>
             <Text style={styles.text5}>{dayjs(time).format("h:mm A")}</Text>
           </View>
+        </View>
+        <View style={{ marginTop: 5, marginLeft: 130 }}>
+          {recordingURI && (
+            <TouchableOpacity onPress={playSound} style={styles.playButton}>
+              <Entypo
+                name="controller-play"
+                size={30}
+                color={Colors.primaryColor}
+              />
+            </TouchableOpacity>
+          )}
         </View>
         <Button
           title="DELETE"
@@ -54,6 +90,7 @@ const styles = StyleSheet.create({
   },
   container3: {
     marginVertical: 5,
+    flexDirection: "row",
   },
   moodDetails: {
     flexDirection: "row",
@@ -83,6 +120,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 5,
     color: Colors.primaryColor,
+  },
+  playButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20,
+    marginTop: -5,
   },
 });
 

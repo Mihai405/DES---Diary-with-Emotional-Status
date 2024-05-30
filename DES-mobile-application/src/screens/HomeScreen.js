@@ -65,6 +65,7 @@ const HomeScreen = ({ moods, onDeleteMood }) => {
                 moodDescription={mood.moodDescription}
                 moodReason={mood.moodReason}
                 time={mood.timestamp}
+                recordingURI={mood.recordingURI}
                 onDelete={() => onDeleteMood(index)}
               />
             ))
