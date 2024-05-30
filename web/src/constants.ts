@@ -11,7 +11,6 @@ export const reasons = [
     'Adventure',
     'Rejection',
     'Surprises',
-    'Daily Chores',
     'Health',
     'Work',
     'Children',
@@ -36,4 +35,6 @@ export const reasons = [
     'Sports',
     'Traffic',
     'Music',
+    'Movies',
+    'Books',
 ];

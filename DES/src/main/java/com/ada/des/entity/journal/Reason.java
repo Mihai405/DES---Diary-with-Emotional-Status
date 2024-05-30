@@ -28,7 +28,7 @@ public enum Reason {
     WEATHER,
     SPORTS,
     TRAFFIC,
-    MUSIC
-
-
+    MUSIC,
+    MOVIES,
+    BOOKS
 }
