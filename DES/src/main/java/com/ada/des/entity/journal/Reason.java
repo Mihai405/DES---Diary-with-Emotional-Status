@@ -23,5 +23,12 @@ public enum Reason {
   PARENTS,
   MONEY,
   PETS,
-  POLITICS
+  POLITICS,
+    RELIGION,
+    WEATHER,
+    SPORTS,
+    TRAFFIC,
+    MUSIC
+
+
 }
