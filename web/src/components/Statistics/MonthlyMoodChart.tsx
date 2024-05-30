@@ -6,6 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { MoodData } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 
 export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     const [month, setMonth] = useState<Dayjs | null>(dayjs());
@@ -27,7 +28,7 @@ export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
     });
 
     return (
-        <div className="monthly-mood-container">
+        <div className="mood-container">
             <h1>Monthly Mood Chart</h1>
             <DatePicker
                 views={['year', 'month']}
@@ -41,7 +42,19 @@ export function MonthlyMoodChart({ moodHistory }: { moodHistory: MoodData[] }) {
                 value={month}
                 onChange={date => setMonth(date)}
             />
+            {filteredMoodHistoryBasedOnMonth.length === 0 && (
+                <div style={{ textAlign: 'center', marginTop: '120px' }}>
+                    <SearchOffIcon style={{ fontSize: '60px' }} />
+                    <h3>'No moods on this month'</h3>
+                </div>
+            )}
             <BarChart
+                sx={{
+                    display:
+                        filteredMoodHistoryBasedOnMonth.length === 0
+                            ? 'none'
+                            : '',
+                }}
                 xAxis={[
                     {
                         scaleType: 'band',

@@ -3,6 +3,7 @@ import { YearlyPieChart } from '../components/Statistics/YearlyPieChart';
 import useSWR from 'swr';
 import { MoodData } from '../types';
 import { CircularProgress } from '@mui/material';
+import { MonthLineChart } from '../components/Statistics/MonthLineChart';
 
 export function StatisticsPage() {
     const { data: moods, isLoading } = useSWR<MoodData[]>(
@@ -18,6 +19,7 @@ export function StatisticsPage() {
         <>
             <YearlyPieChart moodHistory={moods} />
             <MonthlyMoodChart moodHistory={moods} />
+            <MonthLineChart moodHistory={moods} />
         </>
     );
 }

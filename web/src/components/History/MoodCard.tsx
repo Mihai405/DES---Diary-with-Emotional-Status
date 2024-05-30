@@ -1,11 +1,11 @@
 import { MoodData } from '../../types';
-import { moods } from '../MoodForm/MoodButtons';
 import { Button } from '@mui/material';
 import './styles.css';
 import { capitalizeFirstLetter } from '../../utils';
 import { AuthContext } from '../../store/auth-context';
 import { useContext } from 'react';
 import { mutate } from 'swr';
+import { moods } from '../../constants';
 
 export function MoodCard({ moodData }: { moodData: MoodData }) {
     const authCtx = useContext(AuthContext);

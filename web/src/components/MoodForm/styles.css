@@ -33,6 +33,7 @@
 }
 
 .reasons-container {
+    padding-inline: 24px;
     margin-top: 50px;
     display: inline-flex;
     flex-wrap: wrap;

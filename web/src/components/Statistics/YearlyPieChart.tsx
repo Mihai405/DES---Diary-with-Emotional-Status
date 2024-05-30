@@ -4,8 +4,8 @@ import * as React from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { moods } from '../MoodForm/MoodButtons';
 import { capitalizeFirstLetter } from '../../utils';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 
 export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
     const [year, setYear] = useState<Dayjs | null>(dayjs());
@@ -27,7 +27,7 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
     });
 
     return (
-        <div className="yearly-mood-container">
+        <div className="mood-container">
             <h1>Yearly Mood Chart</h1>
             <DatePicker
                 views={['year']}
@@ -41,7 +41,19 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
                 value={year}
                 onChange={date => setYear(date)}
             />
+            {filteredMoodHistoryBasedOnYear.length === 0 && (
+                <div style={{ textAlign: 'center', marginTop: '120px' }}>
+                    <SearchOffIcon style={{ fontSize: '60px' }} />
+                    <h3>'No moods on this year'</h3>
+                </div>
+            )}
             <PieChart
+                sx={{
+                    display:
+                        filteredMoodHistoryBasedOnYear.length === 0
+                            ? 'none'
+                            : '',
+                }}
                 series={[
                     {
                         data: [
@@ -50,7 +62,11 @@ export function YearlyPieChart({ moodHistory }: { moodHistory: MoodData[] }) {
                                 value: moodCounts.Angry,
                                 label: 'Angry 😡',
                             },
-                            { id: 1, value: moodCounts.Sad, label: 'Sad 😞' },
+                            {
+                                id: 1,
+                                value: moodCounts.Sad,
+                                label: 'Sad 😞',
+                            },
                             {
                                 id: 2,
                                 value: moodCounts.Neutral,
