@@ -41,7 +41,7 @@ const SignUpScreen = () => {
       email,
       password,
     };
-    console.log(payload)
+    console.log(payload);
 
     try {
       const response = await fetch("http://localhost:8080/register", {
@@ -88,6 +88,8 @@ const SignUpScreen = () => {
           inputContainerStyle={styles.inputContainer}
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <Input
           placeholder="Password *"

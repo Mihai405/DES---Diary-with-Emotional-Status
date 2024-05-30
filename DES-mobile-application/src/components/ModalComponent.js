@@ -150,11 +150,14 @@ const ModalComponent = ({ visible, onClose, onFinish }) => {
         Add your notes or any thoughts that reflect your mood.
       </Text>
       <View style={styles.explanationContainer}>
-        <Input
+        {/* <Input
           placeholder="Explanation"
           value={explanation}
-          onChangeText={setExplanation}
-        />
+          onChangeText={(text) => {
+            console.log(text);
+            setExplanation(text);
+          }}
+        /> */}
         <TouchableOpacity onPress={recording ? stopRecording : startRecording}>
           <FontAwesome
             name="microphone"
@@ -195,13 +198,18 @@ const ModalComponent = ({ visible, onClose, onFinish }) => {
   };
 
   const handleFinish = () => {
-    if (explanation.trim().length > 0 || recordingData !== null) {
+    if (
+      recordingData !== null &&
+      selectedEmoji !== null &&
+      selectedReason !== null
+    ) {
       const newMood = {
         moodEmoji: selectedEmoji.emoji,
         mood: selectedEmoji.description,
         moodDescription: explanation,
         moodReason: selectedReason,
         timestamp: new Date().toISOString(),
+        recordingURI: recordingData.file,
       };
       onFinish(newMood);
     } else {
@@ -250,9 +258,9 @@ const ModalComponent = ({ visible, onClose, onFinish }) => {
                     onPress={handleFinish}
                     type="clear"
                     titleStyle={styles.buttonTitleStyle}
-                    disabled={
-                      !explanation.trim().length > 0 && recordingData !== null
-                    }
+                    // disabled={
+                    //   !explanation.trim().length > 0 && recordingData !== null
+                    // }
                   />
                 )}
               </View>

@@ -1,3 +1,4 @@
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -10,12 +11,11 @@ import {
 import { Input, Button } from "react-native-elements";
 import { Colors } from "../utils/colors";
 import { useNavigation } from "@react-navigation/native";
-import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const SignInScreen = () => {
   const navigation = useNavigation();
-  const authContext = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,24 +30,22 @@ const SignInScreen = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/login", {
-        method: "POST",
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json();
-      authContext.login(data.token);
-      navigation.navigate("Home");
+      //   const response = await fetch("http://localhost:8080/login", {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       email: email,
+      //       password: password,
+      //     }),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //   if (!response.ok) {
+      //     throw new Error("Login failed");
+      //   }
+      //   const data = await response.json();
+      //   authContext.login(data.token);
+      navigation.navigate("Main");
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed. Please try again.");
@@ -68,6 +66,8 @@ const SignInScreen = () => {
           inputContainerStyle={styles.inputContainer}
           value={email}
           onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <Input
           placeholder="Password"

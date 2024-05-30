@@ -30,8 +30,84 @@ const screenOptions = {
   },
 };
 
+const TabNavigator = ({
+  moods,
+  handleDeleteMood,
+  handleOpenModal,
+  modalVisible,
+  handleCloseModal,
+  handleAddMood,
+}) => (
+  <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Screen
+      name="Home"
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Entypo
+              name="home"
+              size={30}
+              color={focused ? Colors.primaryColor : Colors.darkBlue}
+            />
+            <Text style={{ fontSize: 12, color: Colors.primaryColor }}>
+              HOME
+            </Text>
+          </View>
+        ),
+      }}
+    >
+      {(props) => (
+        <HomeScreen {...props} moods={moods} onDeleteMood={handleDeleteMood} />
+      )}
+    </Tab.Screen>
+    <Tab.Screen
+      name="AddStatus"
+      component={View}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View
+            style={{
+              top: -10,
+              width: 60,
+              height: 60,
+              borderRadius: 30,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: Colors.primaryColor,
+            }}
+          >
+            <FontAwesome5 name="plus" size={30} color={Colors.tertiaryColor} />
+          </View>
+        ),
+        tabBarButton: (props) => (
+          <TouchableOpacity {...props} onPress={handleOpenModal} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Profile"
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <FontAwesome
+              name="user"
+              size={30}
+              color={focused ? Colors.primaryColor : Colors.darkBlue}
+            />
+            <Text style={{ fontSize: 12, color: Colors.primaryColor }}>
+              PROFILE
+            </Text>
+          </View>
+        ),
+      }}
+    >
+      {() => <ProfileScreen moods={moods} />}
+    </Tab.Screen>
+  </Tab.Navigator>
+);
+
 export default function App() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [moods, setMoods] = useState([]);
 
@@ -54,108 +130,33 @@ export default function App() {
     setMoods(updatedMoods);
   };
 
-  if (!user) {
-    return (
-      <AuthContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="SignInScreen"
-              component={SignInScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignUpScreen"
-              component={SignUpScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AuthContextProvider>
-    );
-  }
-
   return (
     <AuthContextProvider>
       <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen
-            name="Home"
-            options={{
-              tabBarIcon: ({ focused }) => (
-                <View
-                  style={{ alignItems: "center", justifyContent: "center" }}
-                >
-                  <Entypo
-                    name="home"
-                    size={30}
-                    color={focused ? Colors.primaryColor : Colors.darkBlue}
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {!user ? (
+            <>
+              <Stack.Screen name="SignInScreen" component={SignInScreen} />
+              <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Main" options={{ headerShown: false }}>
+                {(props) => (
+                  <TabNavigator
+                    {...props}
+                    moods={moods}
+                    handleDeleteMood={handleDeleteMood}
+                    handleOpenModal={handleOpenModal}
+                    modalVisible={modalVisible}
+                    handleCloseModal={handleCloseModal}
+                    handleAddMood={handleAddMood}
                   />
-                  <Text style={{ fontSize: 12, color: Colors.primaryColor }}>
-                    HOME
-                  </Text>
-                </View>
-              ),
-            }}
-          >
-            {(props) => (
-              <HomeScreen
-                {...props}
-                moods={moods}
-                onDeleteMood={handleDeleteMood}
-              />
-            )}
-          </Tab.Screen>
-          <Tab.Screen
-            name="AddStatus"
-            component={View}
-            options={{
-              tabBarIcon: ({ focused }) => (
-                <View
-                  style={{
-                    top: -10,
-                    width: 60,
-                    height: 60,
-                    borderRadius: 30,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: Colors.primaryColor,
-                  }}
-                >
-                  <FontAwesome5
-                    name="plus"
-                    size={30}
-                    color={Colors.tertiaryColor}
-                  />
-                </View>
-              ),
-              tabBarButton: (props) => (
-                <TouchableOpacity {...props} onPress={handleOpenModal} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Profile"
-            options={{
-              tabBarIcon: ({ focused }) => (
-                <View
-                  style={{ alignItems: "center", justifyContent: "center" }}
-                >
-                  <FontAwesome
-                    name="user"
-                    size={30}
-                    color={focused ? Colors.primaryColor : Colors.darkBlue}
-                  />
-                  <Text style={{ fontSize: 12, color: Colors.primaryColor }}>
-                    PROFILE
-                  </Text>
-                </View>
-              ),
-            }}
-          >
-            {() => <ProfileScreen moods={moods} />}
-          </Tab.Screen>
-        </Tab.Navigator>
+                )}
+              </Stack.Screen>
+            </>
+          )}
+        </Stack.Navigator>
         <ModalComponent
           visible={modalVisible}
           onClose={handleCloseModal}
