@@ -14,7 +14,7 @@ export const MoodButtons = ({
             {Object.keys(moods).map((mood, index) => (
                 <MoodButton
                     key={index}
-                    selected={selected === mood}
+                    selected={selected === mood.toUpperCase()}
                     onClick={() => onClick(mood)}
                 >
                     {moods[mood]}

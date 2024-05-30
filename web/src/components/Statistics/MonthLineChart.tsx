@@ -75,11 +75,31 @@ export function MonthLineChart({ moodHistory }: { moodHistory: MoodData[] }) {
                 width={500}
                 height={300}
                 series={[
-                    { data: moodCountsPerMonth.Angry, label: '😡' },
-                    { data: moodCountsPerMonth.Sad, label: '😞' },
-                    { data: moodCountsPerMonth.Neutral, label: '😐' },
-                    { data: moodCountsPerMonth.Happy, label: '😊' },
-                    { data: moodCountsPerMonth.Excited, label: '🤩' },
+                    {
+                        data: moodCountsPerMonth.Angry,
+                        label: '😡',
+                        color: 'red',
+                    },
+                    {
+                        data: moodCountsPerMonth.Sad,
+                        label: '😞',
+                        color: 'pink',
+                    },
+                    {
+                        data: moodCountsPerMonth.Neutral,
+                        label: '😐',
+                        color: 'gray',
+                    },
+                    {
+                        data: moodCountsPerMonth.Happy,
+                        label: '😊',
+                        // color: 'yellow',
+                    },
+                    {
+                        data: moodCountsPerMonth.Excited,
+                        label: '🤩',
+                        color: 'blue',
+                    },
                 ]}
                 xAxis={[{ scaleType: 'point', data: xLabels }]}
             />

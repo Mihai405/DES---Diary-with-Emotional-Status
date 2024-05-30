@@ -41,7 +41,9 @@ export function MoodFormStep2({
                     <ReasonChip
                         key={index}
                         variant={
-                            moodData.reason === reason ? 'filled' : 'outlined'
+                            moodData.reason === reason.toUpperCase()
+                                ? 'filled'
+                                : 'outlined'
                         }
                         onClick={() => {
                             if (moodData.reason === '') setDisabled(false);
